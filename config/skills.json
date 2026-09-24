@@ -152,6 +152,20 @@
         "do the research"
       ],
       "file": "skills/research.md"
+    },
+    {
+      "name": "scraping",
+      "description": "AI-powered web scraping with ScrapeGraphAI — structured data extraction from websites and local documents (HTML, XML, JSON, Markdown) using prompt-driven graph pipelines instead of brittle selectors. Supports single/multi-page, search, script, and audio output graphs with OpenAI/Groq/Gemini/Azure or local Ollama LLMs.",
+      "trigger_phrases": [
+        "scrape this website",
+        "extract data from a page",
+        "scrape some data with AI",
+        "turn this webpage into json",
+        "extract info from multiple sites",
+        "scrapegraphai",
+        "web scraping pipeline"
+      ],
+      "file": "skills/scraping.md"
     }
   ]
 }
