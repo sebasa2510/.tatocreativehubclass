@@ -1,0 +1,32 @@
+{
+  "eval_id": 1,
+  "eval_name": "local-grooming-audit",
+  "prompt": "I run a small dog grooming business called Happy Paws in Austin, TX. My website is happypawsaustin.com but people keep telling me they can't find me on Google. Can you look at why and tell me what to do? Here's what's on my site: a homepage, a services page (baths, haircuts, nail trims, de-shedding), a pricing page, a contact page with my address and phone, and I post to a blog occasionally but not much. I have a Google Business Profile but I don't know if it's set up right.",
+  "assertions": [
+    {
+      "name": "uses-required-output-format",
+      "text": "Response contains all required sections: Executive Summary, Biggest Opportunities, Critical Issues, SEO Analysis, Recommended Actions, Implementation Roadmap.",
+      "passed": true
+    },
+    {
+      "name": "labels-facts-vs-inference",
+      "text": "Response explicitly labels findings as Observed, Inferred, or Recommended rather than presenting guesses as facts.",
+      "passed": true
+    },
+    {
+      "name": "no-fabricated-metrics",
+      "text": "Response does not invent search volumes, rankings, backlinks, or traffic numbers; it flags them as unavailable.",
+      "passed": true
+    },
+    {
+      "name": "covers-local-seo",
+      "text": "Response addresses Google Business Profile, NAP consistency, local intent keywords, and review strategy.",
+      "passed": true
+    },
+    {
+      "name": "prioritizes-correctly",
+      "text": "The top Critical issue is genuinely the most impactful (site unreachable/redirect), not a lower-value cosmetic fix.",
+      "passed": true
+    }
+  ]
+}

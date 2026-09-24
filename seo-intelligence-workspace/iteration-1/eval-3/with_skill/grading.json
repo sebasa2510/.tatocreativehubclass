@@ -1,0 +1,32 @@
+{
+  "eval_id": 3,
+  "eval_name": "construction-saas-content-strategy",
+  "run": "with_skill",
+  "expectations": [
+    {
+      "text": "Response contains all required sections: Executive Summary, Biggest Opportunities, Critical Issues, SEO Analysis, Recommended Actions, Implementation Roadmap.",
+      "passed": true,
+      "evidence": "All six sections present (lines 29-241)."
+    },
+    {
+      "text": "Response structures content around topic clusters with pillars and supporting pages rather than a flat keyword list.",
+      "passed": true,
+      "evidence": "Content section (lines 102-112) defines topic clusters with pillars; Action 5 (lines 173-177)."
+    },
+    {
+      "text": "Response maps content to informational, commercial, and transactional intent and prioritizes commercial-intent pages.",
+      "passed": true,
+      "evidence": "Intent table (lines 118-124); Executive Summary prioritizes commercial-investigation queries (lines 39)."
+    },
+    {
+      "text": "Response specifies an internal linking model (e.g., hub-and-spoke) connecting content to product/money pages.",
+      "passed": true,
+      "evidence": "Internal Linking section (lines 126-128) describes hub-and-spoke model."
+    },
+    {
+      "text": "Response does not invent search volumes, rankings, or traffic; unavailable data is explicitly flagged.",
+      "passed": true,
+      "evidence": "Data & Evidence Status table (lines 9-24); line 116: validate terms, no fabricated volumes."
+    }
+  ]
+}

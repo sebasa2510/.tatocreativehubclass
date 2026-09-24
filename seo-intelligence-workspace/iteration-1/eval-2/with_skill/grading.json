@@ -1,0 +1,32 @@
+{
+  "eval_id": 2,
+  "eval_name": "ecommerce-product-pages",
+  "run": "with_skill",
+  "expectations": [
+    {
+      "text": "Response contains all required sections: Executive Summary, Biggest Opportunities, Critical Issues, SEO Analysis, Recommended Actions, Implementation Roadmap.",
+      "passed": true,
+      "evidence": "All six sections present (lines 8-198)."
+    },
+    {
+      "text": "Response identifies the textless category page as a major issue and recommends adding useful category copy.",
+      "passed": true,
+      "evidence": "Critical Issue 1 (lines 42-47) and Opportunity 1 (lines 24-25); Action 1 (lines 125-130)."
+    },
+    {
+      "text": "Response flags the per-color variant page risk and recommends consolidation with canonical URLs.",
+      "passed": true,
+      "evidence": "Critical Issue 3 (lines 56-62) flags possible per-color variants and recommends consolidation."
+    },
+    {
+      "text": "Response analyzes search intent (commercial investigation vs transactional) before recommending keywords, rather than keyword-stuffing.",
+      "passed": true,
+      "evidence": "Keywords & Search Intent section (lines 96-104) organizes by intent; line 98: 'Start from intent, not keywords.'"
+    },
+    {
+      "text": "Response does not invent search volumes, rankings, or traffic; unavailable data is explicitly flagged.",
+      "passed": true,
+      "evidence": "Data limitation note (lines 40, 118); line 104 flags volume data unavailable."
+    }
+  ]
+}

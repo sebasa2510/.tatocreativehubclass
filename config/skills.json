@@ -1,0 +1,157 @@
+{
+  "skills": [
+    {
+      "name": "skill_builder",
+      "description": "Guides the agent through designing and writing a new skill from scratch.",
+      "trigger_phrases": [
+        "create a new skill",
+        "build a skill for me",
+        "how do I make a skill",
+        "I want a new capability",
+        "help me write a skill"
+      ],
+      "file": "skills/skill_builder.md"
+    },
+    {
+      "name": "orchestrator",
+      "description": "Routes user requests to the right skill — matches intent against the registry, confirms the routing aloud, and hands off. Never does the work itself.",
+      "trigger_phrases": [
+        "which skill should handle this",
+        "route this request",
+        "who handles this",
+        "where does this go",
+        "what skill do I need"
+      ],
+      "file": "skills/orchestrator.md"
+    },
+    {
+      "name": "brand_kit",
+      "description": "Builds a complete brand kit element by element — logo direction, fonts, color palette with hex codes, brand vibe, tone of voice, voice characteristics, brand guidelines, core values, and an introduction paragraph — guided by questions, optionally grounded in a visual reference (screenshot, image, or website URL), and delivered as a styled HTML page.",
+      "trigger_phrases": [
+        "set up my brand",
+        "define brand guidelines",
+        "what is my brand voice",
+        "create a brand kit",
+        "tone and colors for my brand",
+        "brand visual style",
+        "make my brand look like this"
+      ],
+      "file": "skills/brand_kit.md"
+    },
+    {
+      "name": "carousel",
+      "description": "Generates an Instagram carousel post from three inputs — topic, target audience, and goal — with a 10-word-max hook slide, content slides (short title + 3 bullets each), a clear CTA slide, and three caption options (short, medium, long) with hashtags.",
+      "trigger_phrases": [
+        "make a carousel post",
+        "carousel idea",
+        "design a multi-slide post",
+        "create a linkedin carousel",
+        "slides for a social post"
+      ],
+      "file": "skills/carousel.md"
+    },
+    {
+      "name": "seo_intelligence",
+      "description": "SEO intelligence and decision-support: full website audits, organic search strategy, keyword/search-intent analysis, technical and on-page SEO, content strategy, internal linking, local SEO, and competitive analysis with a prioritized roadmap.",
+      "trigger_phrases": [
+        "seo audit",
+        "analyze my website's search visibility",
+        "improve organic search",
+        "keyword strategy",
+        "why doesn't anyone find my site",
+        "content gaps for seo",
+        "local seo"
+      ],
+      "file": "skills/seo_intelligence.md"
+    },
+    {
+      "name": "agent_orchestrator",
+      "description": "Pure routing orchestrator for the developer agent environment. Parses intent, classifies against the core developer skill registry (code_review, db_migration + schema_design/query_tuning, task_tracking, research), confirms aloud, and hands off structured payloads with run ids. Never executes worker tasks itself. 0.80-confidence threshold, focused clarification loops, error handling, and full audit logging.",
+      "trigger_phrases": [
+        "route my developer request",
+        "intent and scope",
+        "orchestrate my dev agents",
+        "dispatch to a worker",
+        "hand off this task",
+        "which developer skill handles this"
+      ],
+      "file": "skills/agent_orchestrator.md"
+    },
+    {
+      "name": "code_review",
+      "description": "Reviews code, diffs, and pull requests for correctness, security, performance, and readability. Produces severity-ranked findings (Critical/High/Medium/Low) with concrete fix suggestions. Never edits code without explicit approval.",
+      "trigger_phrases": [
+        "review my code",
+        "review this pull request",
+        "check this diff",
+        "is my code secure",
+        "find bugs in this code",
+        "code review please"
+      ],
+      "file": "skills/code_review.md"
+    },
+    {
+      "name": "db_migration",
+      "description": "Plans and executes database migrations safely — ordered schema changes, data backfills, rollback strategies, and production risk flags. Routes schema-design questions to schema_design and performance questions to query_tuning.",
+      "trigger_phrases": [
+        "migrate the database",
+        "database migration",
+        "change our schema safely",
+        "migration plan",
+        "do a db migration"
+      ],
+      "file": "skills/db_migration.md"
+    },
+    {
+      "name": "schema_design",
+      "description": "Sub-skill of db_migration. Designs and evaluates PostgreSQL schemas — tables, relations, indexes, constraints, and data modeling — with rationale and trade-offs for each decision.",
+      "trigger_phrases": [
+        "design a database schema",
+        "how should I model this data",
+        "table structure",
+        "database tables design",
+        "what columns do I need"
+      ],
+      "file": "skills/schema_design.md"
+    },
+    {
+      "name": "query_tuning",
+      "description": "Sub-skill of db_migration. Diagnoses slow queries and optimizes them — index strategies, execution plans, query rewriting, and schema-level fixes — with expected impact and trade-offs.",
+      "trigger_phrases": [
+        "slow query",
+        "optimize my query",
+        "query performance",
+        "why is this query slow",
+        "tune my sql",
+        "index this table"
+      ],
+      "file": "skills/query_tuning.md"
+    },
+    {
+      "name": "task_tracking",
+      "description": "Turns goals into tracked tasks — breakdowns, priorities, dependencies, sizes, and status — and updates progress state as the user reports work.",
+      "trigger_phrases": [
+        "track my tasks",
+        "break down this project",
+        "what should I do next",
+        "manage my to-dos",
+        "project planning",
+        "status update"
+      ],
+      "file": "skills/task_tracking.md"
+    },
+    {
+      "name": "research",
+      "description": "Fetches and synthesizes external information — libraries, APIs, best practices, market data — into cited, decision-ready summaries that separate verified fact, inference, and unknown data.",
+      "trigger_phrases": [
+        "research this",
+        "look it up",
+        "what's the best library for",
+        "find information about",
+        "investigate",
+        "do the research"
+      ],
+      "file": "skills/research.md"
+    }
+  ]
+}

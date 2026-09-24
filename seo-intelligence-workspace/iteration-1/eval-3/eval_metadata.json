@@ -1,0 +1,32 @@
+{
+  "eval_id": 3,
+  "eval_name": "construction-saas-content-strategy",
+  "prompt": "My company makes project management software for small construction contractors (invoicing, scheduling, job costing). Our site inventoryapp.com currently has just a homepage, a features page, and a pricing page. We have zero content strategy and don't know what to write about. How should we approach getting organic search traffic?",
+  "assertions": [
+    {
+      "name": "uses-required-output-format",
+      "text": "Response contains all required sections: Executive Summary, Biggest Opportunities, Critical Issues, SEO Analysis, Recommended Actions, Implementation Roadmap.",
+      "passed": true
+    },
+    {
+      "name": "organizes-by-topic-clusters",
+      "text": "Response structures content around topic clusters with pillars and supporting pages rather than a flat keyword list.",
+      "passed": true
+    },
+    {
+      "name": "intent-based-content",
+      "text": "Response maps content to informational, commercial, and transactional intent and prioritizes commercial-intent pages.",
+      "passed": true
+    },
+    {
+      "name": "includes-internal-linking",
+      "text": "Response specifies an internal linking model (e.g., hub-and-spoke) connecting content to product/money pages.",
+      "passed": true
+    },
+    {
+      "name": "no-fabricated-metrics",
+      "text": "Response does not invent search volumes, rankings, or traffic; unavailable data is explicitly flagged.",
+      "passed": true
+    }
+  ]
+}

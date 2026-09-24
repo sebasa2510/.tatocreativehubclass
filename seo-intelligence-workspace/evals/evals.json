@@ -1,0 +1,23 @@
+{
+  "skill_name": "seo_intelligence",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I run a small dog grooming business called Happy Paws in Austin, TX. My website is happypawsaustin.com but people keep telling me they can't find me on Google. Can you look at why and tell me what to do? Here's what's on my site: a homepage, a services page (baths, haircuts, nail trims, de-shedding), a pricing page, a contact page with my address and phone, and I post to a blog occasionally but not much. I have a Google Business Profile but I don't know if it's set up right.",
+      "expected_output": "An SEO audit in the required format: executive summary, biggest opportunities, critical issues, analysis across the SEO categories, prioritized actions, and a phased roadmap. Should flag that rankings/traffic/backlink data is unavailable rather than inventing it, emphasize local SEO and Google Business Profile, and organize around search intent.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "We sell handmade leather bags at leathercrafthaus.com. We have product pages for each bag, a category page for 'leather totes', and a small blog. The product pages are getting almost no organic traffic even though we think they're good. Here's a sample product page: it has a title 'Vintage Leather Tote - Brown', a few photos, a short paragraph description, price, and an Add to Cart button. The category page lists all the tote bags with photos and names but has no text describing the category. What should we fix?",
+      "expected_output": "Analysis of the product and category pages focused on search intent, content depth, on-page elements (title, H1, meta, alt text), internal linking, and category page text. Recommendations should be specific to e-commerce patterns (thin category pages, low-intent product titles, missing supporting content) and prioritized.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My company makes project management software for small construction contractors (invoicing, scheduling, job costing). Our site inventoryapp.com currently has just a homepage, a features page, and a pricing page. We have zero content strategy and don't know what to write about. How should we approach getting organic search traffic?",
+      "expected_output": "A content strategy built around topic clusters and search intent: informational content for contractor pain points, commercial-intent pages comparing solutions, and clear support for the money pages (features, pricing). Should identify content gaps, propose a topic cluster structure, and note that keyword/volume data is unavailable. Should include internal linking between new content and money pages.",
+      "files": []
+    }
+  ]
+}

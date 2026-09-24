@@ -1,0 +1,32 @@
+{
+  "eval_id": 2,
+  "eval_name": "ecommerce-product-pages",
+  "prompt": "We sell handmade leather bags at leathercrafthaus.com. We have product pages for each bag, a category page for 'leather totes', and a small blog. The product pages are getting almost no organic traffic even though we think they're good. Here's a sample product page: it has a title 'Vintage Leather Tote - Brown', a few photos, a short paragraph description, price, and an Add to Cart button. The category page lists all the tote bags with photos and names but has no text describing the category. What should we fix?",
+  "assertions": [
+    {
+      "name": "uses-required-output-format",
+      "text": "Response contains all required sections: Executive Summary, Biggest Opportunities, Critical Issues, SEO Analysis, Recommended Actions, Implementation Roadmap.",
+      "passed": true
+    },
+    {
+      "name": "identifies-thin-category-page",
+      "text": "Response identifies the textless category page as a major issue and recommends adding useful category copy.",
+      "passed": true
+    },
+    {
+      "name": "identifies-variant-cannibalization",
+      "text": "Response flags the per-color variant page risk and recommends consolidation with canonical URLs.",
+      "passed": true
+    },
+    {
+      "name": "intent-before-keywords",
+      "text": "Response analyzes search intent (commercial investigation vs transactional) before recommending keywords, rather than keyword-stuffing.",
+      "passed": true
+    },
+    {
+      "name": "no-fabricated-metrics",
+      "text": "Response does not invent search volumes, rankings, or traffic; unavailable data is explicitly flagged.",
+      "passed": true
+    }
+  ]
+}

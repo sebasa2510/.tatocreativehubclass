@@ -1,0 +1,32 @@
+{
+  "eval_id": 1,
+  "eval_name": "local-grooming-audit",
+  "run": "with_skill",
+  "expectations": [
+    {
+      "text": "Response contains all required sections: Executive Summary, Biggest Opportunities, Critical Issues, SEO Analysis, Recommended Actions, Implementation Roadmap.",
+      "passed": true,
+      "evidence": "All six sections present in order (lines 10-236)."
+    },
+    {
+      "text": "Response explicitly labels findings as Observed, Inferred, or Recommended rather than presenting guesses as facts.",
+      "passed": true,
+      "evidence": "Labels used throughout; e.g. Issue 1 Evidence marks Observed vs Inferred; Section 4 flags 'Unavailable'."
+    },
+    {
+      "text": "Response does not invent search volumes, rankings, backlinks, or traffic numbers; it flags them as unavailable.",
+      "passed": true,
+      "evidence": "Line 6 states no volumes/rankings fabricated; Data Gaps table (lines 240-249) lists unavailable data and how to fill it."
+    },
+    {
+      "text": "Response addresses Google Business Profile, NAP consistency, local intent keywords, and review strategy.",
+      "passed": true,
+      "evidence": "GBP coverage in Critical Issue 3, Local SEO section (lines 123-134), Actions 2 and 9."
+    },
+    {
+      "text": "The top Critical issue is genuinely the most impactful (site unreachable/redirect), not a lower-value cosmetic fix.",
+      "passed": true,
+      "evidence": "Issue 1: site unreachable via redirect to dead hostname; described as root cause (lines 39-52)."
+    }
+  ]
+}

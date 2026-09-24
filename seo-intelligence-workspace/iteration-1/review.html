@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SEO Intelligence Skill - Iteration 1 Review</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;margin:0;background:#f4f5f7;color:#1a1a2e}
+header{background:#1a1a2e;color:#fff;padding:20px 32px}
+header h1{margin:0;font-size:20px}
+header p{margin:4px 0 0;color:#9aa0b5;font-size:13px}
+.tabs{display:flex;gap:8px;padding:12px 32px 0}
+.tabs button{background:#e2e4ea;border:none;padding:8px 16px;border-radius:6px 6px 0 0;cursor:pointer;font-weight:600}
+.tabs button.active{background:#fff}
+.content{padding:24px 32px}
+.case{background:#fff;border-radius:8px;margin-bottom:24px;padding:20px 24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.case h2{margin-top:0;font-size:16px}
+.badge{display:inline-block;background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:10px;font-size:12px;margin-left:8px}
+.prompt{background:#f8f9fa;border-left:3px solid #4a6cf7;padding:10px 14px;border-radius:4px;margin:12px 0;font-size:14px}
+.output{background:#f8f9fa;padding:14px;border-radius:4px;max-height:400px;overflow:auto;font-size:13px;white-space:pre-wrap}
+textarea{width:100%;height:60px;margin-top:10px;border:1px solid #ccc;border-radius:4px;padding:8px;font-family:inherit}
+.actions{display:flex;gap:8px;margin-top:8px}
+.actions button{border:none;padding:8px 14px;border-radius:4px;cursor:pointer;font-weight:600}
+.save{background:#4a6cf7;color:#fff}
+.bench{background:#fff;border-radius:8px;padding:20px 24px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
+th{color:#666;font-size:12px;text-transform:uppercase}
+.pass{color:#2e7d32;font-weight:700}
+</style>
+</head>
+<body>
+<header>
+<h1>SEO Intelligence Skill â€” Iteration 1</h1>
+<p>3 test cases, 15/15 assertions passed. Click through each case, review the output, and leave feedback below each one.</p>
+</header>
+<div class="tabs">
+<button class="active" onclick="show('outputs')">Outputs</button>
+<button onclick="show('benchmark')">Benchmark</button>
+</div>
+<div class="content" id="outputs">
+<div class="case">
+<h2>Eval 1 â€” Local Grooming Audit <span class="badge">5/5</span></h2>
+<div class="prompt">I run a small dog grooming business called Happy Paws in Austin, TX. My website is happypawsaustin.com but people keep telling me they can't find me on Google. Can you look at why and tell me what to do? Here's what's on my site: a homepage, a services page (baths, haircuts, nail trims, de-shedding), a pricing page, a contact page with my address and phone, and I post to a blog occasionally but not much. I have a Google Business Profile but I don't know if it's set up right.</div>
+<textarea id="fb-1" placeholder="Leave feedback on this run (what was good, what was missing)..."></textarea>
+<div class="actions"><button class="save" onclick="savefb(1)">Save feedback</button></div>
+<div class="output" id="out-1"># SEO Visibility Assessment &#226;€” Happy Paws (happypawsaustin.com)
+
+**Business:** Happy Paws &#226;€” dog grooming (baths, haircuts, nail trims, de-shedding), Austin, TX
+**Website:** happypawsaustin.com (Squarespace-hosted)
+**Date of assessment:** August 8, 2026
+**Method:** Live DNS and HTTP checks of the domain, plus live web searches. Findings below are marked **Observed** (directly verified), **Inferred** (reasonable conclusion from evidence), or **Recommended** (what to consider doing). No search volumes, rankings, backlinks, analytics, or Search Console data are fabricated &#226;€” those were unavailable and are flagged where relevant.
+
+---
+
+## 1. Executive Summary
+
+**The main reason people can&#39;t find you on Google is simpler than you think: your website does not actually load.**
+
+I verified that `happypawsaustin.com` and `www.happypawsaustin.com` both immediately redirect to `http://www.happypawsatx.com/` &#226;€” and `www.happypawsatx.com` has no DNS record, so it doesn&#39;t resolve. A browser (and Google&#39;s crawler) hits a &quot;site can&#39;t be reached / server not found&quot; error. Google cannot index a page it cannot load, so your site shows up in essentially zero search results. This one issue explains most of the &quot;people tell me they can&#39;t find me&quot; problem, and it also means any Google Business Profile you have is pointing customers at a dead website.
+
+Two secondary problems are worth addressing at the same time:
+
+1. **A second domain (`happypawsatx.com`) is registered but dead** &#226;€” it exists in DNS only as a registrar record, has no web hosting attached, and is currently the redirect target for your main domain. This is the technical root cause.
+2. **&quot;Happy Paws&quot; is an extremely common name** &#226;€” live searches for &quot;Happy Paws&quot; in the Austin area surface *other* businesses (a pet-sitting company already using the handle &quot;happypawsatx,&quot; a &quot;Happy Paws&quot; in Helotes, and a template-built &quot;Happy Paws Grooming &#226;€” Austin TX&quot;), plus many established groomers. You are competing for your own name, and this makes a correctly set up Google Business Profile essential.
+
+Because the site is unreachable, I could **not** evaluate your actual pages (titles, headings, content, structured data). Those sections are written as checklists to verify once the site loads, not as findings of problems.
+
+**Bottom line:** Fix the domain redirect first. Everything else &#226;€” Google Business Profile, content, local SEO &#226;€” only pays off once the site is actually reachable and indexable.
+
+---
+
+## 2. Biggest Opportunities
+
+1. **Make the site load.** Fixing the redirect restores your entire online presence at once. Until now, *zero* visitors from Google, *zero* crawls &#226;€” no amount of content helps. This is the highest-value possible change.
+2. **Verify and fully complete your Google Business Profile.** For a local grooming shop, the &quot;map pack&quot; (the top 3 businesses shown for &quot;dog groomer near me&quot;) is where new customers actually come from &#226;€” often more important than organic rankings. You said you have a profile but aren&#39;t sure it&#39;s set up right; get it verified and complete (details in Section 8 / Action 2).
+3. **Own your brand name in search.** Right now searches for &quot;Happy Paws Austin&quot; surface other businesses. Once your site is indexed and your profile is live, you can push your own listing to the top of your name &#226;€” this directly converts people who were told &quot;go check out Happy Paws.&quot;
+4. **Turn your service list into local landing pages.** Baths, haircuts, nail trims, and de-shedding map cleanly to real search queries (&quot;dog grooming Austin,&quot; &quot;dog de-shedding near me,&quot; &quot;dog groomer near me&quot;). Structured, useful service pages give Google something specific to rank and give customers a reason to book.
+5. **A review-generation habit.** Reviews are a major local ranking factor *and* the trust signal that makes someone pick you over a competitor in the same map listing.
+
+---
+
+## 3. Critical Issues
+
+### Issue 1: The website is unreachable &#226;€” it redirects to a hostname that does not exist
+
+**Evidence:**
+- **Observed:** `curl -L https://happypawsaustin.com` &#226;†’ `FINAL_URL=http://www.happypawsatx.com/`, `HTTP_CODE=301`, followed by `curl: (6) Could not resolve host: www.happypawsatx.com`.
+- **Observed:** The same happens for `https://www.happypawsaustin.com` (also 301 to the dead hostname).
+- **Observed:** DNS: `happypawsaustin.com` A record &#226;†’ `198.49.23.145` (a Squarespace IP); `www.happypawsaustin.com` CNAME &#226;†’ `ext-sq.squarespace.com`. The redirect target `www.happypawsatx.com` has **no** A/CNAME record (resolution fails; SOA only for the apex).
+- **Observed:** The redirect also downgrades HTTPS &#226;†’ HTTP (it sends visitors to `http://`, not `https://`).
+- **Inferred:** The domain is hosted on Squarespace, and a domain/redirect rule inside Squarespace is sending all traffic to `www.happypawsatx.com`, a second domain that was registered (Google Domains) but never pointed at any hosting.
+
+**Impact:** Critical. Google&#39;s crawler cannot load the site, so it is not indexed. Customers who click any link to your site (including from a Google Business Profile) see an error. This is the direct cause of &quot;people can&#39;t find me on Google.&quot;
+
+**Recommendation:** In Squarespace, remove the redirect to `www.happypawsatx.com` and make `happypawsaustin.com` (or `www.happypawsaustin.com`) the primary domain that serves your site over HTTPS. Confirm the site loads at both `https://happypawsaustin.com` and `https://www.happypawsaustin.com` with a 200 status and no redirect chain.
+
+**Priority:** Critical &#226;€” do this first.
+
+### Issue 2: `happypawsatx.com` is a registered-but-dead second domain
+
+**Evidence:**
+- **Observed:** `happypawsatx.com` has an SOA record (registrar: Google Domains) but **no A/CNAME records**. `curl https://happypawsatx.com` and `http://happypawsatx.com` both fail with &quot;Could not resolve host.&quot; `www.happypawsatx.com` does not resolve either.
+
+**Impact:** This dead domain is currently the destination of your live site&#39;s redirect &#226;€” i.e., it is the reason your site is broken. Left as-is it is also a confusing, unmanaged asset that could be grabbed by someone else later.
+
+**Recommendation:** Either (a) set it up to 301-redirect to your live site (good: protects the brand), or (b) drop/stop renewing it. Never use it as the canonical domain, and never let it be the redirect target of your main site.
+
+**Priority:** Critical (it&#39;s the blocker) &#226;€” handle together with Issue 1.
+
+### Issue 3: No evidence the site is indexed, and no measurement infrastructure in place
+
+**Evidence:**
+- **Observed:** Searches for `&quot;happypawsaustin.com&quot;` and `site:happypawsaustin.com` return **no results** for your site.
+- **Observed:** The site can&#39;t be crawled (Issue 1), so indexing is impossible today.
+- **Observed (unavailable):** No Google Search Console, sitemap, or analytics data could be verified. These are **not** confirmed as missing &#226;€” they simply cannot be checked while the site is unreachable, and no data was provided.
+
+**Impact:** Without Search Console you have no way to know if Google can crawl you, what you&#39;re ranking for, or why not. Without analytics you can&#39;t tell whether any of this work is paying off.
+
+**Recommendation:** Once the site loads, set up Google Search Console, verify ownership, and submit the sitemap; set up Google Analytics 4 (or confirm your existing one). Then request indexing of the homepage.
+
+**Priority:** Critical (must be done the moment the site is live).
+
+---
+
+## 4. SEO Analysis
+
+### Technical SEO
+
+- **Observed:** Broken redirect chain to a non-resolving hostname (Issue 1). This currently dominates all other technical considerations &#226;€” there is no point auditing anything else on-page until it&#39;s fixed.
+- **Observed:** Redirect drops to HTTP. Once fixed, ensure HTTPS-only serving and a clean canonical.
+- **Observed:** Site infrastructure is Squarespace (DNS records), which by default provides mobile-responsive pages, HTTPS, and sitemaps &#226;€” so once the redirect is fixed, many basics are likely already handled by the platform.
+- **Unavailable / to verify once live (Squarespace handles these by default &#226;€” confirm, don&#39;t assume):** XML sitemap exists and is submitted, `robots.txt` not blocking anything important, one canonical version of every page (no trailing-slash/`www` duplication), valid 404s, image compression and alt text, and that structured data (LocalBusiness/Groomer schema) is present.
+
+### On-Page SEO
+
+- **Unavailable:** I could not load any page, so titles, meta descriptions, H1/H2 structure, content quality, and CTAs could not be assessed. Nothing can be assumed broken.
+- **Recommended checkpoints for each page once it loads:**
+  - Homepage: unique title tag containing the business name + city (&quot;Happy Paws Dog Grooming | Austin, TX&quot;), a clear H1, and a prominent &quot;Book an appointment&quot; / phone CTA above the fold.
+  - Services: one section or page per service (baths, haircuts, nail trims, de-shedding) with plain-language description, what&#39;s included, typical timing, and pricing link. Don&#39;t stuff keywords &#226;€” write for the customer.
+  - Pricing: transparent, easy to scan, consistent with the services page.
+  - Contact: full address, phone, hours, a simple form, and an embedded map. This page is the anchor for local SEO.
+  - Blog posts: each should have a title, an H1, and at least one internal link to a service or pricing page.
+
+### Content
+
+- **Observed (as described by the owner):** Homepage, services page (4 services), pricing page, contact page, and an occasionally-updated blog. This is a reasonable baseline structure; the weakness is depth and freshness, not structure.
+- **Recommended (in order):**
+  1. Improve existing service copy before creating anything new &#226;€” make each service page genuinely useful (what&#39;s included, who it&#39;s for, how long it takes).
+  2. Add an FAQ or &quot;What to expect at your first grooming appointment&quot; section (answers the questions customers actually search for).
+  3. Blog on real local topics: &quot;De-shedding tips for Austin dogs,&quot; &quot;How often should a dog be groomed in Texas heat,&quot; &quot;What to expect at your first groom.&quot; Thin, keyword-stuffed posts won&#39;t help &#226;€” a few genuinely useful posts will outperform many shallow ones.
+  4. Avoid creating duplicate content for ranking purposes (e.g., multiple near-identical service pages) &#226;€” Google treats this as spam, and it won&#39;t work anyway.
+
+### Keywords &amp; Search Intent
+
+- **Unavailable:** No keyword tool data was accessed; do not trust any specific search volume I could state. Use Google Keyword Planner and Search Console once it&#39;s collecting data.
+- **The intent that matters most is local + transactional:** &quot;dog groomer near me,&quot; &quot;dog grooming Austin,&quot; &quot;dog groomer Austin TX,&quot; &quot;de-shedding dog Austin,&quot; &quot;[neighborhood] dog groomer.&quot; These are people ready to book.
+- **Recommended topic clusters (not keyword-stuffed pages):**
+  - *Grooming services cluster:* baths, haircuts/trims, nail trims, de-shedding (one quality page each, interlinked).
+  - *Local cluster:* Austin + neighborhood names you actually serve, only if the pages are genuinely local in content (hours, parking, &quot;serving [neighborhoods]&quot;).
+  - *Help/education cluster:* grooming frequency, first appointment, coat/breed care &#226;€” supports the blog and links back to services.
+- Avoid chasing broad terms like &quot;dog grooming&quot; (national, dominated by big brands) in favor of the local terms above.
+
+### Internal Linking
+
+- **Recommended structure:** Homepage &#226;†’ Services &#226;†’ (each service page) &#226;†’ Pricing &#226;†” Contact; blog posts &#226;†’ related service/pricing pages; Contact/booking CTA repeated on every service page.
+- Add a small &quot;Nearby: [neighborhood/landmark]&quot; context on the contact page so nearby-searcher relevance is clear without creating doorway pages.
+
+### Local SEO
+
+- **Observed:** A Google Business Profile exists (per owner) but setup could not be verified &#226;€” no claim, category, or NAP data available. Treat &quot;not sure if it&#39;s set up right&quot; as a real risk.
+- **Observed:** Searches for &quot;Happy Paws&quot; around Austin return other businesses &#226;€” a Petworks listing for &quot;Happy Paws Austin&quot; pet sitting/daycare (whose user handle is literally &quot;happypawsatx&quot;), a BBB &quot;Happy Paws&quot; pet boarding business in Helotes TX, and a template-based &quot;Happy Paws Grooming &#226;€” Austin TX.&quot; **Inferred:** name collision is real and will keep confusing customers and search engines until you own the space.
+- **Recommended:**
+  - Verify and claim the profile; choose the correct category (&quot;Dog groomer&quot; or &quot;Pet groomer&quot;); fill in address, phone, hours, service list, photos, and your website URL (which must be the working, non-redirecting URL).
+  - Keep name/address/phone identical everywhere (site, profile, citations) &#226;€” inconsistency confuses Google.
+  - Decide and be explicit whether you&#39;re a storefront, a service-area business, or both; this changes how the profile is configured.
+  - Set up a systematic review request (after each visit, text/email a link). Respond to all reviews.
+  - Consider short, genuinely local content (&quot;Serving South Austin / Hyde Park / wherever you actually are&quot;).
+
+### Competitive Opportunities
+
+- **Observed (live search, August 2026):** Established Austin competitors include Austin Dogtown (detailed grooming pages, FAQ, add-on pricing, 18 years in business), Dirty Dog (enrichment-based daycare + grooming, since 2004), Green Acres Pet Ranch, Doggie Howser Pet Social Club, Happy Mailman Dog Retreat, Southpaws Playschool, Big Little Paws, and others.
+- **Observed:** Competitors differentiate on expertise (years in business, named groomers), transparency (itemized add-on pricing: &quot;$15 nail trim,&quot; &quot;$8 teeth brushing&quot;), education (FAQ sections), and a clear brand angle (enrichment, stress-free, cage-free).
+- **Inferred:** These are strong, established businesses &#226;€” do not assume ranking next to them will be quick. Differentiation should be about being genuinely useful, not copying them.
+- **Recommended differentiation angles for Happy Paws:**
+  - De-shedding as a specialty (a named service and a real pain point for Texas dogs).
+  - Transparent pricing and add-ons (matches what customers say they want).
+  - A &quot;first visit&quot; experience (named groomer, what to expect, no surprises) to win new customers.
+  - Neighborhood-level local targeting where big facilities aren&#39;t concentrated.
+
+---
+
+## 5. Recommended Actions
+
+### Action 1 &#226;€” Fix the broken domain redirect (make the site load)
+- **What:** Remove the redirect to `www.happypawsatx.com`; make `happypawsaustin.com` serve the actual site over HTTPS; pick one canonical host (`www` or non-`www`) and enforce it consistently.
+- **Why:** The site is currently unreachable by Google and by customers. This is the root cause of &quot;can&#39;t find me on Google.&quot;
+- **How:** In Squarespace Settings &#226;†’ Domains, ensure your primary domain is correct, delete/replace the domain redirect rule, and confirm via `curl -I https://happypawsaustin.com` returning 200. Then verify both `www` and non-`www` variants resolve and load.
+- **Priority:** Critical
+
+### Action 2 &#226;€” Verify and fully optimize the Google Business Profile
+- **What:** Claim/verify the profile; complete every field; correct category; add services, photos, hours, phone, and the working website URL.
+- **Why:** Local pack results are the primary acquisition channel for a grooming business, and &quot;Happy Paws&quot; name collision makes an authoritative profile even more important.
+- **How:** Google Business Profile &#226;†’ verify by postcard/phone; review and correct category &quot;Dog groomer&quot;; confirm name/address/phone match the site exactly; add 10+ real photos; link the corrected website URL; enable messaging if you can respond.
+- **Priority:** Critical
+
+### Action 3 &#226;€” Set up Google Search Console and Google Analytics 4
+- **What:** Verify ownership of `happypawsaustin.com`, submit the sitemap, request indexing of the homepage; confirm GA4 is tracking.
+- **Why:** You cannot manage what you cannot measure; Search Console also surfaces indexation errors so you&#39;ll see the redirect problem (and its fix) directly.
+- **How:** Search Console &#226;†’ Add property (domain, DNS verification via the registrar) &#226;†’ Sitemaps &#226;†’ submit `sitemap.xml` (Squarespace generates one). Add GA4 snippet or Squarespace analytics integration.
+- **Priority:** Critical (immediately after the site is live)
+
+### Action 4 &#226;€” Consolidate your domains
+- **What:** Either point `happypawsatx.com` (and any other domains you own) with a 301 to the live site, or stop renewing them.
+- **Why:** A registered-but-dead domain is a liability, is confusing, and currently is the thing breaking your site.
+- **How:** In the Google Domains / Squarespace DNS settings, set up a redirect or add a `www` record; confirm it 301s to your canonical URL. Never make it the canonical.
+- **Priority:** High
+
+### Action 5 &#226;€” Start a review-generation program
+- **What:** Ask every customer for a Google review after service; respond to every review, good or bad.
+- **Why:** Reviews influence local rankings and are the single strongest trust signal in the local pack, where you&#39;ll be competing with established, reviewed competitors.
+- **How:** Add a simple follow-up text/email with a direct review link (Squarespace has review-request tools/third-party integrations). Aim for steady flow, not bursts.
+- **Priority:** High
+
+### Action 6 &#226;€” Improve the four existing pages for local search and conversion
+- **What:** Rewrite homepage, services, pricing, and contact so each page is specific, local, and ends in a booking action; keep NAP consistent.
+- **Why:** Thin, generic copy won&#39;t outrank established local competitors; specific, useful copy wins both rankings and customers.
+- **How:** One service per section/page; include address/phone/hours/map on contact; a clear phone + &quot;Book&quot; CTA on every page; link services &#226;†” pricing &#226;†” contact throughout. Verify titles/headings per Section 4 checkpoints.
+- **Priority:** High
+
+### Action 7 &#226;€” Add structured data (LocalBusiness / Groomer schema)
+- **What:** Mark up business name, address, phone, hours, service area, and services with schema.org markup.
+- **Why:** Helps Google understand and display your local business details (including in the local pack and knowledge panel).
+- **How:** Squarespace supports custom code / JSON-LD blocks; or use a structured-data validator to confirm correctness after adding.
+- **Priority:** Medium
+
+### Action 8 &#226;€” Create genuinely useful local content (not volume-for-volume&#39;s-sake)
+- **What:** 4&#226;€“6 useful pages/posts first (first-visit guide, de-shedding for Texas dogs, grooming frequency, FAQ), each linking to services/pricing; then grow.
+- **Why:** Answers real questions, earns trust, and gives Google crawlable, relevant pages that support your service pages.
+- **How:** Write for the customer; one topic per post; interlink to service pages; keep the blog regular but quality-first (per the skill&#39;s anti-thin-content principle).
+- **Priority:** Medium
+
+### Action 9 &#226;€” Establish consistent citations and directory listings
+- **What:** Ensure name/address/phone are identical on your site, GBP, and key directories (e.g., Yelp, local chambers) where you have presence.
+- **Why:** NAP consistency is a local ranking factor; &quot;Happy Paws&quot; collisions make inconsistency more damaging.
+- **How:** Audit existing listings for mismatched name/address/phone; correct and standardize.
+- **Priority:** Medium
+
+### Action 10 &#226;€” Verify mobile experience and speed after the fix
+- **What:** Test the live site on a phone and via Google&#39;s PageSpeed Insights / Mobile-Friendly Test.
+- **Why:** Most local searches happen on mobile; a good experience protects rankings and conversions.
+- **How:** Run the checks once the site loads; fix obvious issues (Squarespace templates are usually solid here).
+- **Priority:** Medium
+
+---
+
+## 6. Implementation Roadmap
+
+### Phase 1 &#226;€” Foundation (Week 1&#226;€“2)
+- Fix the redirect so `happypawsaustin.com` serves the site over HTTPS (Action 1).
+- Consolidate domains; 301 `happypawsatx.com` or drop it (Action 4).
+- Verify and complete Google Business Profile (Action 2).
+- Set up Search Console, submit sitemap, request indexing; confirm GA4 (Action 3).
+- Confirm both `www` and non-`www` load with 200, HTTPS, no redirect chain.
+
+### Phase 2 &#226;€” Optimization (Week 3&#226;€“6)
+- Rewrite homepage/services/pricing/contact for local intent + booking CTAs (Action 6).
+- NAP consistency + citation cleanup (Action 9).
+- Add structured data (Action 7).
+- Kick off the review program (Action 5).
+- Mobile/speed verification (Action 10).
+
+### Phase 3 &#226;€” Growth (Month 2&#226;€“3+)
+- Publish the first genuinely useful content pieces (first-visit guide, de-shedding guide, FAQ) and link them to services (Action 8).
+- Continue the blog with locally relevant, useful topics; keep internal linking consistent.
+- Consider neighborhood-focused local content only where it&#39;s genuinely useful.
+
+### Phase 4 &#226;€” Measurement (Ongoing, monthly)
+- Review Search Console: impressions, clicks, queries, indexing errors.
+- Review GA4: traffic sources, phone calls, bookings.
+- Track review volume/rating and whether GBP link clicks and calls are increasing.
+- Adjust based on data &#226;€” not guesses. (Note: no baseline numbers exist yet; month 1 establishes the baseline.)
+
+---
+
+## Data Gaps &#226;€” What I Could Not Verify (and why it matters)
+
+| Gap | Why it matters | How to fill it |
+| --- | --- | --- |
+| Actual on-page content (titles, headings, text) | Could not load any page; on-page assessment is conditional until the redirect is fixed | Fix the redirect, then re-run the Section 4 on-page checklist |
+| Google Business Profile status/verification | Owner is unsure it&#39;s set up right; no public data to confirm | Log into GBP and follow Action 2 |
+| Search Console / analytics data | No way to know crawl, indexing, or traffic history | Set up after Phase 1; first month establishes baseline |
+| Backlinks and domain authority | Not verifiable (and not worth much until the site loads) | Reassess after the site is indexed |
+| Search volumes / rankings | Deliberately not invented per this assessment&#39;s principles | Use Keyword Planner + Search Console data going forward |
+| Competitor performance (traffic/revenue) | Presence in search results does not prove success | Compare content quality and reviews, not assumed metrics |
+
+---
+
+*Prepared by an SEO intelligence and decision-support agent. Findings are based on live checks performed on August 8, 2026, and the site details provided by the owner. Facts and inferences are labeled as such; nothing was invented.*
+</div>
+</div>
+<div class="case">
+<h2>Eval 2 â€” E-commerce Product Pages <span class="badge">5/5</span></h2>
+<div class="prompt">We sell handmade leather bags at leathercrafthaus.com. We have product pages for each bag, a category page for 'leather totes', and a small blog. The product pages are getting almost no organic traffic even though we think they're good. Here's a sample product page: it has a title 'Vintage Leather Tote - Brown', a few photos, a short paragraph description, price, and an Add to Cart button. The category page lists all the tote bags with photos and names but has no text describing the category. What should we fix?</div>
+<textarea id="fb-2" placeholder="Leave feedback on this run (what was good, what was missing)..."></textarea>
+<div class="actions"><button class="save" onclick="savefb(2)">Save feedback</button></div>
+<div class="output" id="out-2"># SEO Review &#226;€” leathercrafthaus.com (Handmade Leather Bags)
+
+**Prepared for:** Leathercraft Haus
+**Scope:** Organic traffic analysis for product pages, category page structure, and content strategy.
+
+---
+
+## 1. Executive Summary
+
+Your product pages are getting almost no organic traffic because they are **too thin to compete** and your site is **not structured around what people actually search for**.
+
+The core problem is a mismatch between search intent and page quality:
+
+- Your **category page** (&quot;Leather Totes&quot;) should be your strongest asset &#226;€” it targets the highest-volume, highest-intent search term on your site (&quot;leather tote bag&quot;) &#226;€” but it currently has **no text at all**, so search engines have almost nothing to rank it against.
+- Your **product pages** have only a short paragraph, which is too little content to rank for the commercial-investigation searches your buyers actually make (e.g., &quot;brown leather tote&quot;, &quot;handmade leather bag&quot;, &quot;vintage leather tote&quot;) and too little information to convince a buyer who is comparing options.
+- Naming a product page by color (&quot;Vintage Leather Tote - Brown&quot;) suggests you may be publishing **near-duplicate pages per color**, which makes your pages compete against each other and dilutes every one of them.
+
+The good news: the fixes here are **content and structure**, not algorithm tricks. None of them require new code frameworks, external links, or paid tools to get started. Most are writing and on-site edits that directly improve both search visibility and the buyer experience.
+
+---
+
+## 2. Biggest Opportunities
+
+### Opportunity 1 &#226;€” Turn the category page into a real ranking page
+Your &quot;Leather Totes&quot; category page is where most of your future organic traffic will come from, because &quot;leather tote&quot; and &quot;leather tote bag&quot; are the commercial searches with the most volume and the clearest purchase intent. Today it has no descriptive text, so it cannot rank for any of them. Adding a genuine, useful category introduction turns an image gallery into a landing page.
+
+### Opportunity 2 &#226;€” Make product pages answer the buyer&#39;s real questions
+Buyers searching for a leather tote are comparing options: materials, dimensions, durability, what it fits, how it&#39;s made. A short paragraph cannot win that comparison. Expanding product pages with real, useful information makes them eligible to rank for dozens of long-tail queries per product *and* increases conversion &#226;€” one change, two benefits.
+
+### Opportunity 3 &#226;€” Stop product pages from competing with each other
+If each color or variant (&quot;Brown&quot;, &quot;Black&quot;, &quot;Tan&quot;) has its own product page, those pages are near-duplicates that split your signals and rank against each other. Consolidating variants into a single product page with a color selector is the single highest-leverage structural fix.
+
+### Opportunity 4 &#226;€” Let your blog feed your products
+A small blog is a quiet asset. If each post links to relevant products and categories, the blog builds topical authority and passes link equity into the pages you actually want to rank.
+
+---
+
+## 3. Critical Issues
+
+&gt; **Data limitation:** These findings are based only on the page descriptions you provided. No crawl, analytics, Search Console, backlink, or ranking data was available, and nothing below assumes any. Where a claim depends on the live site, it is marked **Inferred** and a verification step is included.
+
+### Issue 1: Category page contains no text
+
+- **Evidence (Observed):** The &quot;Leather Totes&quot; category page lists bags with photos and names only; no category description exists.
+- **Impact:** The page has no content for search engines to evaluate or rank, and no reason for Google to treat it as an authoritative match for &quot;leather tote&quot; queries. It also gives buyers no reason to stay and evaluate.
+- **Recommendation:** Add a substantial, useful category introduction (materials, sizing, how your bags differ from mass-produced totes, what each bag is best for). Never keyword-stuff it &#226;€” write it for the buyer, naturally using the terms they search.
+- **Priority:** **Critical**
+
+### Issue 2: Product pages are too thin
+
+- **Evidence (Observed):** Product page = title, a few photos, short paragraph, price, Add to Cart.
+- **Impact:** Thin content does not satisfy commercial-investigation intent, gives Google little to determine relevance, and provides buyers with too little information to purchase &#226;€” hurting both rankings and conversion.
+- **Recommendation:** Expand each product page with genuinely useful information: full dimensions, materials, hardware, craftsmanship, what fits inside, care instructions, shipping/returns, and an FAQ-style block. Write it fresh per product.
+- **Priority:** **Critical**
+
+### Issue 3: Possible per-color variant pages (cannibalization)
+
+- **Evidence (Observed):** Sample title is &quot;Vintage Leather Tote - Brown&quot;.
+- **Inferred:** The color in the title suggests separate pages per color/variant exist for the same bag.
+- **Impact:** Near-duplicate pages compete for the same keywords, split ranking signals, and confuse Google about which page is authoritative &#226;€” a classic cause of &quot;good pages that rank nowhere.&quot;
+- **Recommendation:** Verify. If variants are separate pages, consolidate into one product page with an on-page color/variant selector, using one canonical URL. If you keep separate URLs, never let them share title/description/content.
+- **Priority:** **High** (verification first)
+
+### Issue 4: No way to see why traffic is low (no measurement)
+
+- **Evidence (Observed):** None &#226;€” you state product pages get &quot;almost no organic traffic&quot; but no diagnostic data is provided.
+- **Impact:** Without Google Search Console (queries, impressions, clicks, indexing) and analytics data, you are optimizing blind and cannot tell whether the problem is indexing, rankings, or clicks.
+- **Recommendation:** Confirm Google Search Console and Google Analytics 4 are installed and connected. Use GSC to see which queries you actually appear for and which pages are (or aren&#39;t) indexed. This data should drive your priority decisions.
+- **Priority:** **High**
+
+---
+
+## 4. SEO Analysis
+
+### Technical SEO
+
+- **Observed:** No technical signals were available. Do not assume a technical fault exists.
+- **Recommended to verify:** HTTPS, mobile rendering, page speed, broken links, XML sitemap submitted to Search Console, robots.txt, and that product URLs are clean and not duplicated with `?color=` / tracking parameters.
+- **Structured data (Recommended):** Add Product schema to every product page (name, image, brand, offer price, currency, availability, SKU) and BreadcrumbList schema to product and category pages. This is cheap to implement and improves eligibility for rich results. Category pages can use ItemList schema.
+- **Images (Recommended):** Large, high-quality images (ideally 800px+), descriptive alt text (e.g., &quot;brown full-grain leather tote bag with shoulder strap&quot; &#226;€” not &quot;image1.jpg&quot;), and descriptive file names. Photos are the single most important asset on a handmade-product page, for both SEO and conversion.
+
+### On-Page SEO
+
+- **Title tags:** &quot;Vintage Leather Tote - Brown&quot; is descriptive but weak for search. Recommended pattern: `{Product/Feature} | {Brand}` with the primary phrase buyers use (&quot;brown leather tote&quot;, &quot;handmade leather tote&quot;). Keep under ~60 characters, unique per page, no filler words. (Observed: current title; Recommended: change pattern.)
+- **Meta descriptions:** Not provided &#226;€” write unique, benefit-driven descriptions (~150&#226;€“160 characters) for every product and the category page.
+- **Headings:** Ensure exactly one H1 per page (the product/category name) and logical H2s (Details, Dimensions, Care, Shipping).
+- **URLs:** Keep product URLs short and descriptive (e.g., `/products/vintage-leather-tote`) rather than long ID-based strings. (Recommended; verify current URL structure.)
+- **Add to Cart / CTA:** The buy button exists, which is good. Keep content organized so the CTA is visible while the page still supports evaluation.
+
+### Content
+
+- **Category page:** Thin (no text) &#226;†’ the highest-value content fix on the site.
+- **Product pages:** Thin &#226;†’ expand with original, useful copy per product. Do not copy the same paragraph across bags; uniqueness is the point.
+- **Blog:** Present but underused. Recommended blog-to-content cluster approach (see Keywords below). Blog posts must link to the relevant product and category pages, and product pages should be able to link back to relevant posts (e.g., care guides).
+
+### Keywords &amp; Search Intent
+
+**Start from intent, not keywords.** Do not rewrite pages just to insert keywords.
+
+- **Category page intent (commercial/transactional):** Searchers want a list of leather totes to choose from. Primary terms: *leather tote*, *leather tote bag*, *handmade leather tote*, plus modifiers (*women&#39;s*, *vintage*, *brown leather tote*). The category page should directly satisfy this.
+- **Product page intent (transactional + commercial investigation):** Searchers have narrowed in on a specific bag. The page must confirm it&#39;s right for them: photos, dimensions, materials, what fits, durability, shipping. Terms like *brown leather tote bag*, *vintage style leather tote*, *full-grain leather tote* fit naturally if they describe the product truthfully.
+- **Blog intent (informational, supporting):** Topics that support purchases: *how to care for a leather bag*, *full-grain vs top-grain leather*, *how to choose a leather tote*, *vintage leather: what to look for*. Each becomes a cluster that links down to category and product pages. These pages build the topical authority you need to rank for the commercial terms.
+
+**Data needed:** Actual search volumes and current query data are not available and are not assumed. Use Google Search Console query data plus Google&#39;s Keyword Planner / autocomplete to validate which phrases are worth targeting.
+
+### Internal Linking
+
+- **Observed:** No link structure was described beyond category &#226;†’ product listing.
+- **Recommended:** (1) Breadcrumbs on every product/category page; (2) the category page links to all products (it does) &#226;€” ensure each product links *back* to the category; (3) a &quot;Related products&quot; section on each product page; (4) blog posts link to relevant products/categories; (5) cross-link between similar products (e.g., other totes, matching wallets). This distributes authority and improves navigation for both users and crawlers.
+
+### Local SEO
+
+- **Inferred:** &quot;leathercrafthaus.com&quot; and the handmade nature suggest a workshop; if you have a physical storefront/workshop or serve a specific city, local SEO applies.
+- **Recommended (conditional):** A Google Business Profile, consistent NAP (name, address, phone) across the web, and a local landing page if you sell from a physical location. Do not fabricate any local ranking or profile data. If you are online-only, this section does not apply.
+
+### Competitive Opportunities
+
+- **Data limitation:** No competitor data was provided and none is assumed.
+- **Recommended:** Identify 2&#226;€“3 handmade-leather sellers who rank for &quot;leather tote&quot; and compare, honestly: their page depth, photo quality, reviews, and unique selling points. Use this to find gaps (e.g., nobody answers &quot;what fits inside,&quot; nobody shows workshop photos, nobody has strong care guides) and own them. Do not assume competitors are successful simply because they rank &#226;€” check their actual content quality.
+
+---
+
+## 5. Recommended Actions
+
+### 1. Write a real category page introduction
+
+- **What:** Add a few paragraphs of genuinely useful text above/below the product grid on &quot;Leather Totes&quot; &#226;€” what makes a leather tote, your materials, what each bag is for, and your brand difference.
+- **Why:** The category page targets your highest-intent searches; today it has no content to rank.
+- **How:** Write 150&#226;€“300 words of original copy per category that a shopper would actually read, using your real product terms naturally. Do not stuff keywords.
+- **Priority:** **Critical**
+
+### 2. Expand every product page
+
+- **What:** Replace the short paragraph with structured, original content: story/description, materials &amp; hardware, exact dimensions &amp; capacity, what fits inside, craftsmanship details, care instructions, shipping/returns, FAQ block.
+- **Why:** Satisfies commercial-investigation intent, unlocks long-tail rankings, and increases conversion &#226;€” the page that ranks and sells is the page that answers the buyer&#39;s questions.
+- **How:** Use an H2-structured template per product, but write unique copy for each bag. Photograph every angle plus lifestyle shots, and write descriptive alt text.
+- **Priority:** **Critical**
+
+### 3. Consolidate color variants (after verification)
+
+- **What:** If each color has its own URL, merge into one product page with a color selector and a single canonical URL.
+- **Why:** Eliminates duplicate-content dilution and self-competition between near-identical pages.
+- **How:** Keep one URL per product; switch variants in-page (JPG for each color, alt text updated). If merging is not possible, ensure titles/meta/content are clearly differentiated per variant.
+- **Priority:** **High**
+
+### 4. Add structured data
+
+- **What:** Product schema (price, currency, availability, brand, image, SKU) + BreadcrumbList.
+- **Why:** Improves eligibility for rich results and machine readability.
+- **How:** Standard `JSON-LD`; your theme/plugin may support it, or add via tag manager.
+- **Priority:** **High**
+
+### 5. Optimize titles, meta descriptions, URLs, and images
+
+- **What:** Rewrite product/category titles to match real buyer language and include the brand; write unique meta descriptions; keep clean URLs; add descriptive alt text.
+- **Why:** Titles and descriptions control clicks; alt text helps image search and accessibility; these are fast, low-risk wins.
+- **How:** Pattern like `Handmade Brown Leather Tote | Leathercraft Haus` for products, `Leather Tote Bags &#226;€“ Handmade &amp; Full-Grain | Leathercraft Haus` for the category.
+- **Priority:** **Medium**
+
+### 6. Build blog-to-product topic clusters
+
+- **What:** Publish and/or repurpose blog posts on leather care, leather types, choosing a tote &#226;€” each linking to the category and relevant products.
+- **Why:** Builds topical authority and passes link equity to money pages; also captures informational traffic that later converts.
+- **How:** Map 3&#226;€“5 supporting topics to your 1&#226;€“2 commercial pages; add internal links both directions.
+- **Priority:** **Medium**
+
+### 7. Set up measurement
+
+- **What:** Confirm Google Search Console + GA4 are installed and connected to the property.
+- **Why:** You cannot prioritize without knowing which queries you appear for, which pages are indexed, and what actually converts.
+- **How:** Add the property in GSC, submit the sitemap, and review &quot;Pages&quot; and &quot;Queries&quot; reports monthly.
+- **Priority:** **High** (prerequisite for refining everything else)
+
+---
+
+## 6. Implementation Roadmap
+
+### Phase 1 &#226;€” Foundation
+- Confirm Search Console + GA4 and submit the XML sitemap (Action 7).
+- Verify variant-page duplication; consolidate color variants with canonical URLs (Action 3).
+- Add Product and Breadcrumb structured data (Action 4).
+- Verify basic technical health: HTTPS, mobile, no broken links, clean URLs.
+
+### Phase 2 &#226;€” Optimization
+- Write the category page introduction (Action 1).
+- Expand product page content and improve photography/alt text (Actions 2 and 5).
+- Rewrite titles, meta descriptions, and internal-link structure (breadcrumbs, related products, category links).
+- Use the first 30 days of GSC data to see which queries your pages already touch and double down there.
+
+### Phase 3 &#226;€” Growth
+- Build blog topic clusters that support the category and best-selling products (Action 6).
+- Add comparison/category content (e.g., &quot;all totes,&quot; &quot;all messenger bags&quot;) only if each adds real value &#226;€” never create thin pages just to rank.
+- Study 2&#226;€“3 competitors honestly and close content gaps you can genuinely serve better.
+
+### Phase 4 &#226;€” Measurement
+- Monthly GSC + GA4 review: indexed pages, query impressions/clicks, CTR, product page conversions.
+- Kill or consolidate any page with zero impressions after ~2&#226;€“3 months rather than leaving it live.
+- Re-run this analysis quarterly as the site grows.
+
+---
+
+## Final Note
+
+The fastest path to real organic traffic is not more products or more keywords &#226;€” it is making the pages you already have **answer the searcher&#39;s question completely**. When a shopper searches &quot;handmade leather tote,&quot; they want evidence that your bag is worth their money. Give them that evidence, and Google &#226;€” and your customers &#226;€” will reward it.
+</div>
+</div>
+<div class="case">
+<h2>Eval 3 â€” Construction SaaS Content Strategy <span class="badge">5/5</span></h2>
+<div class="prompt">My company makes project management software for small construction contractors (invoicing, scheduling, job costing). Our site inventoryapp.com currently has just a homepage, a features page, and a pricing page. We have zero content strategy and don't know what to write about. How should we approach getting organic search traffic?</div>
+<textarea id="fb-3" placeholder="Leave feedback on this run (what was good, what was missing)..."></textarea>
+<div class="actions"><button class="save" onclick="savefb(3)">Save feedback</button></div>
+<div class="output" id="out-3"># SEO Strategy: Growing Organic Traffic for inventoryapp.com
+
+**Business:** Project management SaaS for small construction contractors (invoicing, scheduling, job costing)
+**Current site:** Homepage, Features, Pricing (3 pages total)
+**Goal:** Establish a content strategy and approach for earning organic search traffic
+
+---
+
+## Data &amp; Evidence Status
+
+Per the operating principles of this analysis, I distinguish what is **observed**, what is **inferred**, and what is **unavailable**. No assumptions about rankings, traffic, or competitor performance are made.
+
+| Category | Item | Status |
+|---|---|---|
+| Observed | Site has 3 pages: Home, Features, Pricing | Provided by client |
+| Observed | Product features: invoicing, scheduling, job costing | Provided by client |
+| Observed | Target buyer: small construction contractors | Provided by client |
+| Inferred | Small contractors conduct frequent Google searches for practical how-to topics (invoicing, job costing, scheduling, bidding) | Reasonable from buyer behavior in this category; must be validated with keyword data |
+| Inferred | Commercial-intent queries exist for &quot;software for contractors,&quot; &quot;invoicing software,&quot; comparison/alternatives searches | Category-standard behavior; must be validated |
+| Unavailable | Search volumes, current rankings, organic traffic, backlinks, domain authority | Not provided |
+| Unavailable | Google Search Console / analytics data | Not provided |
+| Unavailable | Technical audit data (crawl, indexing, speed, mobile) | Not provided |
+| Unavailable | Competitor content/coverage data | Not provided |
+
+**What this means:** This document is a strategy framework, not a measured audit. Before spending budget, the measurement foundation (Section 4, Technical SEO) must be set up so decisions are driven by real data rather than guesses.
+
+---
+
+## 1. Executive Summary
+
+With only three pages, inventoryapp.com can currently only appear in search for its own brand name. Every practical and commercial question a contractor types into Google &#226;€” &quot;how to do job costing,&quot; &quot;best invoicing software for contractors,&quot; &quot;construction scheduling software&quot; &#226;€” is answered by someone else, not you.
+
+The path to organic growth is a three-part sequence:
+
+1. **Foundation first.** Verify the three existing pages are crawlable, indexed, fast, and correctly targeted. Set up Google Search Console and analytics so every decision after this is evidence-based.
+2. **Optimize what exists.** Turn the single Features page into intent-specific pages (Invoicing, Scheduling, Job Costing) that match what buyers actually search for, and make Homepage and Pricing convert the traffic you already earn.
+3. **Build a content engine, not a blog.** Create a small number of high-value topic clusters that match contractor search intent at every stage of the funnel &#226;€” informational (how-to), commercial (comparisons, best-of), and transactional (pricing, alternatives). Publish slowly and well, then let internal linking build topical authority.
+
+The highest-value move is not &quot;write more blog posts.&quot; It is **owning the commercial-investigation queries** &#226;€” the searches contractors make right before choosing software &#226;€” because those searches have both volume and a clear path to revenue.
+
+---
+
+## 2. Biggest Opportunities
+
+1. **Own the commercial &quot;software for contractors&quot; searches.** Queries like &quot;construction project management software for small contractors,&quot; &quot;invoicing software for contractors,&quot; and &quot;job costing software&quot; sit close to purchase. Comparison pages and trade-specific pages convert this intent better than generic blog posts.
+2. **Answer the practical questions contractors actually ask.** Job costing, construction invoicing, progress billing, scheduling crews, lien waivers, and change orders are topics your buyers search daily. Each is a natural gateway into your product&#39;s features. This is where you build traffic and trust with content that is genuinely useful.
+3. **Verticalize by trade.** A roofing contractor and an electrician search differently and buy differently. Dedicated pages (&quot;scheduling software for roofers,&quot; &quot;job costing for remodelers&quot;) capture intent that generic pages miss and differentiate you from broad competitors.
+4. **Split the Features page into feature-specific landing pages.** Your biggest existing asset is currently one page covering everything. Splitting it creates three focused, rankable destinations that align with feature-intent searches.
+5. **Win the late-funnel &quot;alternatives&quot; traffic.** Buyers compare you against known category names. Well-built, honest comparison content captures prospects already in decision mode.
+
+---
+
+## 3. Critical Issues
+
+**Issue 1: No content to capture non-brand demand.**
+- **Evidence:** Site contains only Home, Features, and Pricing. No resource hub, guides, or informational/commercial pages exist.
+- **Impact:** The site can rank only for its brand name. All practical and commercial searches &#226;€” the overwhelming majority of demand in this category &#226;€” go to competitors. Organic growth is effectively zero without content.
+- **Recommendation:** Build a structured content engine organized into topic clusters (see Section 5), starting with the highest commercial-intent queries, not random blog topics.
+- **Priority:** Critical
+
+**Issue 2: The Features page is a single page for three distinct search intents.**
+- **Evidence:** All three product areas (invoicing, scheduling, job costing) are presented under one page, while each is a separate search category with distinct intent.
+- **Impact:** Diluted relevance. One page cannot optimally target &quot;construction invoicing software&quot; and &quot;construction scheduling software&quot; simultaneously; it competes against itself and against dedicated competitor pages.
+- **Recommendation:** Split into three feature pages (or a hub + three subpages) with unique, intent-targeted titles and content. Keep the Features page as the hub.
+- **Priority:** High
+
+**Issue 3: No measurement foundation in place (or unverified).**
+- **Evidence:** No data provided on Search Console, analytics, or indexing status.
+- **Impact:** Without measurement you cannot know what ranks, what converts, or whether the strategy works. Budget and effort will be misallocated.
+- **Recommendation:** Install and verify Google Search Console and GA4, submit an XML sitemap, and confirm all three existing pages are indexed before expanding content.
+- **Priority:** Critical
+
+**Issue 4: No intent-aligned conversion path from future traffic.**
+- **Evidence:** Pricing page and homepage exist, but their alignment to content-driven traffic (e.g., a reader of &quot;job costing guide&quot; landing on a relevant job-costing page with a clear next step) is unknown.
+- **Impact:** Content can generate traffic that leaves without becoming leads, wasting the investment.
+- **Recommendation:** Every content cluster must link to a relevant product page and every product page must have a clear call to action (free trial / demo / pricing).
+- **Priority:** High
+
+---
+
+## 4. SEO Analysis
+
+### Technical SEO
+
+No crawl or index data was available, so nothing is claimed as broken. The following must be **verified and configured** before any content investment:
+
+- **Search Console verification** and GA4 installation &#226;€” non-negotiable first step.
+- **XML sitemap** submitted; confirm all three pages are indexed and none are accidentally blocked (`robots.txt`).
+- **HTTPS**, correct canonical tags, and 301 handling for any URL variants (www vs non-www, http vs https).
+- **Mobile usability** &#226;€” contractors are overwhelmingly on phones; the site and future content must render cleanly on mobile.
+- **Page speed** on all three pages, especially for mobile.
+- **Structured data** where appropriate (SoftwareApplication, FAQ, HowTo) &#226;€” add when content exists; do not rush.
+- **Image optimization** (compression, alt text) as content is added.
+
+### On-Page SEO
+
+- **Homepage** should function as the money page: one primary target query (e.g., construction project management software for small contractors), one clear H1, a value proposition that names the buyer (&quot;built for small contractors&quot;), and a single dominant call to action.
+- **Features** &#226;†’ restructure into three focused pages: **Invoicing for Contractors**, **Construction Scheduling**, and **Job Costing Software**. Each gets a unique title tag, meta description, H1, and body that satisfies that specific intent.
+- **Pricing** &#226;†’ the page must answer the real questions: price points, what&#39;s included, and how it compares to the cost of existing manual processes. Transparent pricing is a ranking and conversion asset in this category.
+- Each page needs title/meta that states the value and the buyer, not generic company language.
+
+### Content
+
+This is the core gap and the core opportunity. Recommended structure is **topic clusters** (pillar page + supporting pages) rather than disconnected posts:
+
+- **Pillar: Job Costing** &#226;€” cluster: how to do job costing, job costing vs estimating, labor vs material cost tracking, job cost report templates, common job costing mistakes.
+- **Pillar: Construction Invoicing** &#226;€” cluster: how to invoice construction clients, progress billing vs milestone billing, construction invoice templates, lien waivers, retainage, payment terms.
+- **Pillar: Construction Scheduling** &#226;€” cluster: how to schedule a construction project, crew scheduling, weather delays, templates, resource planning.
+- **Pillar: Software Selection** &#226;€” cluster: construction project management software for small contractors, invoicing software for contractors, job costing software, comparisons/alternatives, how to choose software.
+- **Trade verticals** &#226;€” scheduling/job costing/invoicing pages tailored to roofers, electricians, plumbers, painters, landscapers, remodelers, and HVAC contractors.
+
+Content quality rule: each piece must be genuinely useful and answer the query fully. No keyword-stuffed or thin pages. Publishing one strong, complete guide per week is more effective than three shallow posts.
+
+### Keywords &amp; Search Intent
+
+Keywords are organized by intent, not as a flat list. Theme names below are direction for research, not fabricated volumes &#226;€” validate every term with Search Console, Google Keyword Planner, and a keyword tool before committing.
+
+| Intent | Example theme (to be validated) | Where it lands |
+|---|---|---|
+| Informational | &quot;how to do job costing,&quot; &quot;how to invoice a construction client,&quot; &quot;construction schedule template&quot; | Cluster support pages &#226;†’ links to feature pages |
+| Commercial investigation | &quot;job costing software,&quot; &quot;invoicing software for contractors,&quot; &quot;construction scheduling software&quot; | Feature/pillar pages |
+| Commercial comparison | &quot;best construction project management software for small contractors,&quot; &quot;X alternatives&quot; | Comparison pages |
+| Transactional | brand name, &quot;pricing,&quot; &quot;free trial,&quot; &quot;sign up&quot; | Homepage, Pricing, sign-up flow |
+| Trade-specific | &quot;job costing software for electricians,&quot; &quot;scheduling software for roofers&quot; | Trade vertical pages |
+
+### Internal Linking
+
+Use a **hub-and-spoke model**: each pillar page links to its cluster support pages and to the relevant feature/product page; support pages link up to their pillar and to a product page; homepage links to the three feature pages and the highest-value pillars. Every content page should have at least one natural path to a conversion page. This spreads topical authority and drives readers to the product.
+
+### Local SEO
+
+The software is a national product, so classic local SEO (local landing pages, Google Business Profile) has **low direct relevance** &#226;€” a contractor in Chicago does not search &quot;construction software in Chicago,&quot; and creating city pages for software would be artificial content. The relevant local angle is **serving local businesses**: trade-specific and workflow-specific content (e.g., state-specific lien laws, license requirements) that local contractors actually search for. Do not create duplicate location pages. Do not fabricate a local presence if none exists.
+
+### Competitive Opportunities
+
+The category includes well-known construction/field-service software brands, but ranking brands are not automatically better for your audience. Opportunities to differentiate:
+
+- **Explicit focus on small contractors** &#226;€” most category marketing skews to mid-size or enterprise; &quot;built for the 1&#226;€“20 person crew&quot; is a defensible, searchable position.
+- **Transparent pricing on the page** &#226;€” rare in this category and attractive to small buyers.
+- **Trade-specific depth** &#226;€” pages tailored to specific contractor types that broad competitors only cover generically.
+- **Job-costing and invoicing expertise** &#226;€” practical, money-related topics that convert.
+
+**Unavailable:** competitor keyword coverage, content depth, backlink profiles, and ranking data. Before prioritizing specific comparison targets, gather this data (Section 4 measurement tools + a keyword tool) and validate that the audience is actually served well &#226;€” ranking does not equal success.
+
+---
+
+## 5. Recommended Actions
+
+**Action 1: Set up the measurement foundation.**
+- **What:** Install and verify Google Search Console and GA4; submit sitemap; confirm 3 pages indexed.
+- **Why:** Without data, every content decision is a guess.
+- **How:** Standard platform setup; verify ownership via DNS or HTML tag; monitor Coverage report.
+- **Priority:** Critical
+
+**Action 2: Verify and fix technical basics on the three existing pages.**
+- **What:** HTTPS, canonicals, redirects, mobile rendering, page speed.
+- **Why:** Broken foundation limits indexing and hurts rankings even with good content.
+- **How:** Run a crawler (e.g., Screaming Frog) and Lighthouse; fix issues found. Only act on confirmed findings.
+- **Priority:** Critical
+
+**Action 3: Restructure Features into three intent-specific pages.**
+- **What:** Create Invoicing, Scheduling, and Job Costing pages from the Features content; keep Features as a hub.
+- **Why:** Aligns page structure with distinct search intents, removing self-competition and boosting relevance.
+- **How:** Draft each page around one primary query, one H1, and a clear CTA linking to Pricing/signup.
+- **Priority:** High
+
+**Action 4: Optimize Homepage and Pricing for conversion and target queries.**
+- **What:** Tighten value proposition, titles, metas, and CTAs on both pages.
+- **Why:** Traffic from content must convert; these are the money pages.
+- **How:** Rewrite homepage around one primary query and buyer statement; add pricing transparency and FAQ.
+- **Priority:** High
+
+**Action 5: Build the first content cluster &#226;€” Job Costing.**
+- **What:** One pillar page (job costing software) + 4&#226;€“5 support guides (how to do job costing, job costing vs estimating, cost reports, mistakes to avoid).
+- **Why:** Job costing is your most distinctive feature, has clear commercial intent, and is a common pain point.
+- **How:** Research real search terms; write complete, practical guides; internally link to the Job Costing feature page.
+- **Priority:** High
+
+**Action 6: Add the Software Selection / commercial cluster.**
+- **What:** Pillar on construction project management software for small contractors + comparison and alternatives pages.
+- **Why:** Captures buyers in decision mode &#226;€” highest value per visitor.
+- **How:** Research validated terms; write honest, factual comparison content; link to Pricing and signup.
+- **Priority:** High
+
+**Action 7: Launch Invoicing and Scheduling clusters.**
+- **What:** Mirror the Job Costing cluster for invoicing (invoices, progress billing, lien waivers) and scheduling (crew scheduling, templates, delays).
+- **Why:** Covers your full product surface and the full range of contractor searches.
+- **How:** Same cluster method; publish after Job Costing to keep quality high.
+- **Priority:** Medium
+
+**Action 8: Add trade verticals (roofers, electricians, plumbers, remodelers).**
+- **What:** Tailored versions of feature pages for the highest-demand trades.
+- **Why:** Distinct search behavior and purchase behavior per trade; strong differentiation.
+- **How:** Start with one trade, validate traffic, then expand.
+- **Priority:** Medium
+
+**Action 9: Build trust and authority assets.**
+- **What:** Customer case studies, founder-authored content, and transparent company/about content.
+- **Why:** Search engines and buyers reward demonstrated expertise and trustworthiness; case studies double as ranking and conversion content.
+- **How:** Interview 2&#226;€“3 customers; publish proof-oriented pages linked from relevant clusters.
+- **Priority:** Medium
+
+**Action 10: Set up an internal linking and measurement cadence.**
+- **What:** Enforce hub-and-spoke linking on all new content; track rankings, clicks, and conversions monthly.
+- **Why:** Sustains topical authority and tells you what to double down on.
+- **How:** Link checklist in the publishing workflow; monthly review of Search Console + analytics.
+- **Priority:** Medium (ongoing)
+
+---
+
+## 6. Implementation Roadmap
+
+### Phase 1 &#226;€” Foundation (Weeks 1&#226;€“3)
+- Install and verify Google Search Console and GA4; submit XML sitemap; confirm all 3 pages indexed.
+- Run and fix technical verification (HTTPS, canonicals, mobile, speed) on confirmed issues.
+- Write title tags, meta descriptions, and H1s for the 3 existing pages; add clear CTAs.
+- Conduct the actual keyword research to validate the themes in Section 4 (Search Console, Google Keyword Planner, a paid keyword tool, and competitor research). Do not skip this step.
+- **Exit criteria:** measurement live, 3 pages indexed, validated keyword list of 50&#226;€“100 terms grouped by intent and cluster.
+
+### Phase 2 &#226;€” Optimization (Weeks 3&#226;€“6)
+- Split Features into Invoicing, Scheduling, and Job Costing pages.
+- Optimize Homepage and Pricing for target queries and conversion.
+- Add internal links between the 3 core pages and the new feature pages.
+- Create the Job Costing cluster (pillar + 4&#226;€“5 support guides).
+- **Exit criteria:** 6+ product pages live; first cluster published and internally linked; first organic clicks visible in Search Console.
+
+### Phase 3 &#226;€” Growth (Weeks 7&#226;€“16+)
+- Publish the Software Selection/commercial cluster (pillar, comparisons, alternatives).
+- Launch Invoicing and Scheduling clusters.
+- Add the first trade vertical page; expand if validated.
+- Publish 2&#226;€“3 customer case studies and authority content.
+- Publish one strong piece per week at most; protect quality over volume.
+- **Exit criteria:** all three product clusters live, commercial pages ranking toward first page for target terms, measurable leads from organic traffic.
+
+### Phase 4 &#226;€” Measurement &amp; Iteration (Ongoing)
+- Monthly review: rankings, clicks, impressions, and signup/demo conversions per cluster.
+- Identify which clusters earn traffic and which convert; double down, cut or rewrite weak content.
+- Update content with new questions from Search Console queries (the &quot;queries&quot; report is your ongoing editorial source).
+- Track competitor content weekly (Google Alerts or keyword tool position tracking) and respond to gaps.
+- **Exit criteria:** a repeatable feedback loop where content investment follows proven demand.
+
+---
+
+## Final Notes on &quot;What Should We Write About?&quot;
+
+The short answer: write about **job costing, invoicing, and scheduling for small contractors**, in that order of commercial value, organized as topic clusters, and validated by real keyword data before you write. Never publish a page that does not serve a validated search intent and link to a conversion page.
+
+You are not aiming for volume. You are aiming to become the most useful, most credible answer to the questions your buyers ask right before they need software like yours.
+
+**Discoverable &#226;†’ Relevant &#226;†’ Useful &#226;†’ Trustworthy &#226;†’ Easy to navigate &#226;†’ Valuable to the business.**
+</div>
+</div>
+</div>
+<div class="content" id="benchmark" style="display:none">
+<div class="bench">
+<h2 style="margin-top:0">Benchmark Summary</h2>
+<table>
+<tr><th>Eval</th><th>Name</th><th>Assertions</th><th>Result</th></tr>
+<tr><td>1</td><td>Local Grooming Audit</td><td>5/5</td><td class="pass">PASS</td></tr>
+<tr><td>2</td><td>E-commerce Product Pages</td><td>5/5</td><td class="pass">PASS</td></tr>
+<tr><td>3</td><td>Construction SaaS Content Strategy</td><td>5/5</td><td class="pass">PASS</td></tr>
+<tr><td colspan="2"><strong>Total</strong></td><td><strong>15/15</strong></td><td class="pass">100%</td></tr>
+</table>
+</div>
+</div>
+<script>
+function show(name){
+ document.getElementById('outputs').style.display = name==='outputs'?'block':'none';
+ document.getElementById('benchmark').style.display = name==='benchmark'?'block':'none';
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+ document.querySelectorAll('.tabs button')[name==='outputs'?0:1].classList.add('active');
+}
+function savefb(n){
+ var t=document.getElementById('fb-'+n).value;
+ localStorage.setItem('seo_review_fb_'+n, t);
+ var b=document.getElementById('fb-'+n);
+ b.style.borderColor='#4a6cf7';
+ setTimeout(()=>{b.style.borderColor='#ccc';},800);
+}
+window.onload=function(){
+ for(var n=1;n<=3;n++){
+  var fb=localStorage.getItem('seo_review_fb_'+n);
+  if(fb) document.getElementById('fb-'+n).value=fb;
+ }
+};
+</script>
+</body>
+</html>
