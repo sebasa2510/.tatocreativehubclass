@@ -1,0 +1,156 @@
+{
+  "_comment": "Manifest of third-party repos cloned into repos/. The repos/ directory is gitignored (shallow clones, ~565 MB) - this file is the source of truth so the setup can be reproduced. Recreate with: git clone --depth 1 <url> repos/<dir>",
+  "repos": [
+    {
+      "dir": "hindsight",
+      "url": "https://github.com/vectorize-io/hindsight",
+      "commit": "ccfe85b4",
+      "date": "2026-09-26",
+      "branch": "main",
+      "size_mb": 398.3,
+      "files": 4904,
+      "has_skills": true,
+      "skills": "5 SKILL.md in skills/ (hindsight-architect, hindsight-cloud, hindsight-docs, hindsight-local, hindsight-self-hosted)",
+      "description": "Vectorize's Hindsight long-term agent memory system (Python/Go monorepo: API, control plane, CLI, MCP server, clients, deploy artifacts) using retain-recall-reflect with observations, mental models, and memory banks; claims SOTA on LongMemEval."
+    },
+    {
+      "dir": "impeccable",
+      "url": "https://github.com/pbakaus/impeccable",
+      "commit": "9d715cc4",
+      "date": "2026-09-24",
+      "branch": "main",
+      "size_mb": 71.7,
+      "files": 3290,
+      "has_skills": true,
+      "skills": "1 logical skill (skill/SKILL.src.md) compiled into 20 SKILL.md copies across .claude/, .cursor/, .gemini/, .opencode/, plugin/skills/; plus 24 slash commands, 4 agents, 40+ reference docs, 61 detector rules",
+      "description": "CLI + multi-agent plugin distribution (Rust core, Bun CLI, browser and VS Code extensions) giving AI coding agents frontend design guidance, live browser iteration, and 61 deterministic rules for detecting AI-generated design."
+    },
+    {
+      "dir": "claude-plugins",
+      "url": "https://github.com/anthropics/claude-plugins-official",
+      "commit": "fa59bc90",
+      "date": "2026-09-25",
+      "branch": "main",
+      "size_mb": 20.5,
+      "files": 571,
+      "has_skills": true,
+      "skills": "31 SKILL.md across plugins/ and external_plugins/ (lsp, code-review, security, feature-dev, skill-creator, hookify, ...), plus many commands/ and agents/ definitions",
+      "description": "The official Claude Code plugin marketplace directory, bundling Anthropic-maintained plugins and third-party external plugins installable via /plugin install."
+    },
+    {
+      "dir": "ui-ux-pro-max",
+      "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "commit": "09170eec",
+      "date": "2026-09-27",
+      "branch": "main",
+      "size_mb": 27.6,
+      "files": 711,
+      "has_skills": true,
+      "skills": "7 SKILL.md under .claude/skills/ (ui-ux-pro-max, design, design-system, brand, ui-styling, slides, banner-design), mirrored in cli/assets/skills/; plus skill.json and a Claude plugin manifest",
+      "description": "Design-intelligence skill plus Python/TypeScript CLIs that search a curated database of UI styles, color palettes, font pairings, UX guidelines, chart types, and reasoning rules to generate tailored design systems for 22 tech stacks."
+    },
+    {
+      "dir": "context-mode",
+      "url": "https://github.com/mksglu/context-mode",
+      "commit": "5d13dc45",
+      "date": "2026-09-27",
+      "branch": "main",
+      "size_mb": 17.8,
+      "files": 628,
+      "has_skills": true,
+      "skills": "8 SKILL.md in skills/ (context-mode, ctx-doctor, ctx-index, ctx-insight, ctx-purge, ctx-search, ctx-stats, ctx-upgrade)",
+      "description": "TypeScript/Bun MCP server (plus Claude/Codex/Cursor/OpenClaw plugin manifests) that keeps raw tool output out of the agent context window via sandboxed code execution and an FTS5/BM25-indexed SQLite session store that survives compaction."
+    },
+    {
+      "dir": "anthropic-skills",
+      "url": "https://github.com/anthropics/skills",
+      "commit": "33375500",
+      "date": "2026-09-24",
+      "branch": "main",
+      "size_mb": 14.0,
+      "files": 448,
+      "has_skills": true,
+      "skills": "19 SKILL.md in skills/ + 1 in template/; the repo is entirely skills",
+      "description": "Anthropic's official repo of example Agent Skills for Claude, covering creative, technical, enterprise, and document (docx/pdf/pptx/xlsx) tasks, plus the Agent Skills spec and a skill template."
+    },
+    {
+      "dir": "taste-skill",
+      "url": "https://github.com/Leonxlnx/taste-skill",
+      "commit": "ce26fc25",
+      "date": "2026-09-26",
+      "branch": "main",
+      "size_mb": 9.1,
+      "files": 95,
+      "has_skills": true,
+      "skills": "13 SKILL.md in skills/ (taste-skill, taste-skill-v1, gpt-tasteskill, image-to-code, redesign, soft, output, minimalist, brutalist, stitch, imagegen-frontend-web/mobile, brandkit)",
+      "description": "Collection of anti-AI-slop frontend design Agent Skills encoding design-language inference, GSAP motion skeletons, redesign audits, and distinct visual directions (minimalist, brutalist, image-generation-only brand kits); installable via npx skills add or as a Claude plugin."
+    },
+    {
+      "dir": "workspace-cli",
+      "url": "https://github.com/googleworkspace/cli",
+      "commit": "a3768d0e",
+      "date": "2026-03-31",
+      "branch": "main",
+      "size_mb": 3.6,
+      "files": 251,
+      "has_skills": true,
+      "skills": "95 SKILL.md in skills/ (one per Workspace API area) plus more in .agent/skills; README advertises 40+ agent skills",
+      "description": "gws, a Rust/Node CLI for Google Workspace that reads Google's Discovery Service at runtime to dynamically generate its whole command surface for Drive, Gmail, Calendar and more, emitting structured JSON."
+    },
+    {
+      "dir": "video-use",
+      "url": "https://github.com/browser-use/video-use",
+      "commit": "b8770638",
+      "date": "2026-09-23",
+      "branch": "main",
+      "size_mb": 1.3,
+      "files": 65,
+      "has_skills": true,
+      "skills": "1 root SKILL.md + 1 in skills/manim-video/, backed by helpers/ Python editing scripts and install.md",
+      "description": "Conversation-driven video editing skill that turns a folder of raw footage into a graded, subtitled, audio-crossfaded final.mp4 via ffmpeg, ElevenLabs transcription, and parallel sub-agent animation generation, self-evaluating the render."
+    },
+    {
+      "dir": "autoresearch",
+      "url": "https://github.com/karpathy/autoresearch",
+      "commit": "228791fb",
+      "date": "2026-03-25",
+      "branch": "master",
+      "size_mb": 1.1,
+      "files": 39,
+      "has_skills": false,
+      "skills": null,
+      "description": "Karpathy's minimal single-GPU LLM pretraining playground (prepare.py + train.py, a simplified nanochat) where an AI agent autonomously edits train.py and runs fixed 5-minute experiments scored by val_bpb, with humans steering via program.md."
+    },
+    {
+      "dir": "npxskillui",
+      "url": "https://github.com/amaancoderx/npxskillui",
+      "commit": "bc913a8d",
+      "date": "2026-05-08",
+      "branch": "main",
+      "size_mb": 1.0,
+      "files": 67,
+      "has_skills": false,
+      "skills": null,
+      "description": "SkillUI, a Node CLI that statically crawls a website, git repo, or local codebase and extracts its full design system (colors, typography, spacing, animations, components, screenshots) into a .skill folder, with no AI or API keys required."
+    },
+    {
+      "dir": "humanizer",
+      "url": "https://github.com/blader/humanizer",
+      "commit": "9862685f",
+      "date": "2026-09-06",
+      "branch": "main",
+      "size_mb": 0.1,
+      "files": 39,
+      "has_skills": true,
+      "skills": "1 root SKILL.md; the repo is essentially just the skill plus agents/openai.yaml and scripts/validate-package.py",
+      "description": "Pure-Markdown Agent Skill that rewrites AI-sounding text to read as human-written without altering its meaning, optionally matching a user-supplied voice sample; installable via npx skills add or as a Claude Code plugin."
+    }
+  ],
+  "totals": {
+    "repos": 12,
+    "with_skills": 10,
+    "skill_files": 223,
+    "distinct_skills": 188,
+    "size_mb": 565.9
+  }
+}
