@@ -1,0 +1,48 @@
+[submodule "repos/anthropic-skills"]
+	path = repos/anthropic-skills
+	url = https://github.com/anthropics/skills
+	shallow = true
+[submodule "repos/autoresearch"]
+	path = repos/autoresearch
+	url = https://github.com/karpathy/autoresearch
+	shallow = true
+[submodule "repos/claude-plugins"]
+	path = repos/claude-plugins
+	url = https://github.com/anthropics/claude-plugins-official
+	shallow = true
+[submodule "repos/context-mode"]
+	path = repos/context-mode
+	url = https://github.com/mksglu/context-mode
+	shallow = true
+[submodule "repos/hindsight"]
+	path = repos/hindsight
+	url = https://github.com/vectorize-io/hindsight
+	shallow = true
+[submodule "repos/humanizer"]
+	path = repos/humanizer
+	url = https://github.com/blader/humanizer
+	shallow = true
+[submodule "repos/impeccable"]
+	path = repos/impeccable
+	url = https://github.com/pbakaus/impeccable
+	shallow = true
+[submodule "repos/npxskillui"]
+	path = repos/npxskillui
+	url = https://github.com/amaancoderx/npxskillui
+	shallow = true
+[submodule "repos/taste-skill"]
+	path = repos/taste-skill
+	url = https://github.com/Leonxlnx/taste-skill
+	shallow = true
+[submodule "repos/ui-ux-pro-max"]
+	path = repos/ui-ux-pro-max
+	url = https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+	shallow = true
+[submodule "repos/video-use"]
+	path = repos/video-use
+	url = https://github.com/browser-use/video-use
+	shallow = true
+[submodule "repos/workspace-cli"]
+	path = repos/workspace-cli
+	url = https://github.com/googleworkspace/cli
+	shallow = true

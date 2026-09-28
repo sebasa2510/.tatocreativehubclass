@@ -1,0 +1,9 @@
+# Vendored third-party repos under repos/ are git submodules, pinned in
+# .gitmodules. Their contents are governed by each submodule's own .gitignore.
+# Their skill index is generated into config/repo_skills.json - see
+# scripts/index-repo-skills.ps1.
+
+# OS / editor noise
+Thumbs.db
+.DS_Store
+*.swp
