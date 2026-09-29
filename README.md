@@ -12,7 +12,7 @@ This folder holds the configuration, memory, and skills that define how the .tat
 
 ## Routing is two-tier
 
-1. `config/skills.json` — 13 first-party skills. Always searched first.
+1. `config/skills.json` — 15 first-party skills. Always searched first.
 2. `config/repo_skills.json` — 969 distinct skills from the 11 vendored repos, used when Tier 1 has no match.
 
 `config/repo_skills.json` is generated. After adding or updating a repo, rebuild it:

@@ -7,3 +7,8 @@
 Thumbs.db
 .DS_Store
 *.swp
+
+# Test fixtures for skills. They contain deliberately planted fake credentials
+# and deliberately incomplete notes, so they must never be published to the
+# portfolio or committed. See skills/fixtures/.
+fixtures/

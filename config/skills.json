@@ -169,6 +169,35 @@
         "web scraping pipeline"
       ],
       "file": "skills/scraping.md"
+    },
+    {
+      "name": "proposal_builder",
+      "description": "Converts raw client intake notes into a structured WholsDesir business proposal — Client Overview, The Problem, Proposed Approach, Deliverables, Timeline, Investment, Next Steps. Halts on a missing-field checklist rather than inventing services, rates, timelines, or deliverables. Redacts exposed credentials, isolates scope, reframes performance guarantees, and handles versioned revisions.",
+      "trigger_phrases": [
+        "write a client proposal",
+        "turn these notes into a proposal",
+        "build a proposal from this intake",
+        "proposal for a new client",
+        "draft a scope and pricing proposal",
+        "update the proposal pricing",
+        "help me write a proposal"
+      ],
+      "file": "skills/proposal_builder.md"
+    },
+    {
+      "name": "luxury_static_site",
+      "description": "Designs and builds production-ready luxury brand websites in vanilla HTML, CSS custom properties, and one deferred sub-3KB JavaScript file, deployable to Netlify by folder drop with no build step. Gates on a 21-question brand intake before any code, verifies WCAG 2.1 AA contrast by calculation, and self-checks against a fixed acceptance list. Never invents a brand fact, a social proof claim, or a form endpoint.",
+      "trigger_phrases": [
+        "build me a luxury website",
+        "create a high-end brand site",
+        "luxury site",
+        "/luxury-site",
+        "make something look expensive",
+        "premium looking landing page",
+        "elegant site for my brand",
+        "I need a site that looks expensive"
+      ],
+      "file": "skills/luxury_static_site.md"
     }
   ]
 }

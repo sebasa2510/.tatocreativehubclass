@@ -1,0 +1,63 @@
+﻿{
+  "_comment": "Agency profile for proposal_builder. Populate with REAL values only. The skill reads this before drafting and never guesses these. Every field marked TODO must be filled by the agency owner before the skill can produce a client-facing proposal.",
+  "_status": "PARTIAL - serviceable for demonstration, NOT production-ready. See _demo_note.",
+
+  "legal_name": {
+    "value": null,
+    "placeholder": "WholsDesir",
+    "required": true,
+    "note": "Legal entity name for the proposal header. TODO: supply the registered legal name. Branded/trading name above is a display stand-in only."
+  },
+  "registered_address": {
+    "value": null,
+    "placeholder": "[Registered Address Missing]",
+    "required": true,
+    "note": "TODO: supply the registered business address."
+  },
+  "contact_email": {
+    "value": null,
+    "placeholder": "[Agency Contact Email Missing]",
+    "required": true,
+    "note": "TODO: supply the address clients should reply to."
+  },
+
+  "platform_modules": {
+    "value": [],
+    "required": true,
+    "note": "The real modules of the WholsDesir agency management platform. proposal_builder may ONLY claim a solution 'aligns with the WholsDesir platform' when the named capability appears in this list. Empty means no platform-alignment claims are permitted at all.",
+    "confirmed_modules": []
+  },
+
+  "media_workflows": {
+    "value": [],
+    "required": false,
+    "note": "Named media workflows the agency can deliver. TODO: populate. Empty means media-workflow claims are not permitted."
+  },
+
+  "internal_standard_scopes": {
+    "value": [],
+    "required": false,
+    "note": "The catalogue of standard internal agency scopes that deliverables are checked against. TODO: populate. With this empty, the skill cannot confirm a deliverable matches a standard scope and must flag it for review instead."
+  },
+
+  "default_currency": {
+    "value": null,
+    "placeholder": "[Confirm Currency - Do Not Assume]",
+    "required": true,
+    "note": "Currency symbol for all figures. The skill treats a missing currency as a halt condition, so it must be supplied per-proposal if not fixed here."
+  },
+
+  "proposal_expiration": {
+    "value": null,
+    "placeholder": "[Proposal Expiration Date: MM/DD/YYYY]",
+    "required": true,
+    "note": "TODO: set a standard validity window, or supply per-proposal."
+  },
+
+  "_demo_note": [
+    "This file exists so proposal_builder does not stall on its first run. Every business field is null or empty on purpose.",
+    "The skill is designed to HALT on missing required fields rather than invent values, so a null here produces a correct missing-field checklist - it does not produce a broken proposal.",
+    "That refusal to fabricate is the behaviour worth demonstrating. Filling these fields in is an owner task, not something to guess at.",
+    "Verified 2026-09-29: skills/proposal_builder.md, registered in config/skills.json, listed in skills/orchestrator.md, published to portfolio/tato/skills/."
+  ]
+}

@@ -13,6 +13,8 @@ You are the routing layer of the .tato agent system. You never execute work your
 4. **skill_builder** — designing and writing a new skill for the system.
 5. **agent_orchestrator** — routes developer/engineering requests to code_review, db_migration (+ schema_design, query_tuning), task_tracking, and research.
 6. **scraping** — AI-powered extraction with ScrapeGraphAI, single or multi-page, from URLs or local documents.
+7. **proposal_builder** — converts raw client intake notes into a structured WholsDésir business proposal, halting on a missing-field checklist rather than inventing scope, rates, or timelines.
+8. **luxury_static_site** — builds production-ready luxury brand websites in vanilla HTML/CSS with a single deferred JS file, gated on a brand intake and AA contrast audit. Trigger: `/luxury-site` or any request for a high-end brand site.
 
 **Tier 2 — vendored skills.** `config/repo_skills.json`. 969 distinct skills pulled from the 11 skill-bearing repos under `repos/`. Consult this only when Tier 1 has no real match.
 
