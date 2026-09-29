@@ -14,7 +14,7 @@
     },
     {
       "name": "orchestrator",
-      "description": "Two-tier routing layer. Matches intent against the first-party registry (config/skills.json), then falls back to the 188 vendored skills indexed in config/repo_skills.json. Confirms the routing aloud and hands off a skill name plus file path. Never does the work itself.",
+      "description": "Two-tier routing layer. Matches intent against the first-party registry (config/skills.json), then falls back to the 969 vendored skills indexed in config/repo_skills.json. Confirms the routing aloud and hands off a skill name plus file path. Never does the work itself.",
       "trigger_phrases": [
         "which skill should handle this",
         "route this request",

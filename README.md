@@ -13,7 +13,7 @@ This folder holds the configuration, memory, and skills that define how the .tat
 ## Routing is two-tier
 
 1. `config/skills.json` — 13 first-party skills. Always searched first.
-2. `config/repo_skills.json` — 188 distinct skills from the 10 vendored repos, used when Tier 1 has no match.
+2. `config/repo_skills.json` — 969 distinct skills from the 11 vendored repos, used when Tier 1 has no match.
 
 `config/repo_skills.json` is generated. After adding or updating a repo, rebuild it:
 
@@ -31,7 +31,7 @@ It scans `repos/` for `SKILL.md`, reads each file's frontmatter, collapses the p
 
 ## Working with the Submodules
 
-The 12 vendored repos under `repos/` are git submodules, pinned to exact commits. Their code is **not** copied into this repository — `.tato` stores only a commit pointer per repo, so the pushed history stays under 1 MB.
+The 13 vendored repos under `repos/` are git submodules, pinned to exact commits. Their code is **not** copied into this repository — `.tato` stores only a commit pointer per repo, so the pushed history stays under 1 MB.
 
 ```powershell
 git clone --recursive https://github.com/sebasa2510/.tatocreativehubclass.git

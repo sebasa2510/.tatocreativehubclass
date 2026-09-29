@@ -46,3 +46,6 @@
 	path = repos/workspace-cli
 	url = https://github.com/googleworkspace/cli
 	shallow = true
+[submodule "repos/openaccountants"]
+	path = repos/openaccountants
+	url = https://github.com/openaccountants/openaccountants

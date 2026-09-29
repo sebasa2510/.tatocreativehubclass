@@ -144,13 +144,26 @@
       "has_skills": true,
       "skills": "1 root SKILL.md; the repo is essentially just the skill plus agents/openai.yaml and scripts/validate-package.py",
       "description": "Pure-Markdown Agent Skill that rewrites AI-sounding text to read as human-written without altering its meaning, optionally matching a user-supplied voice sample; installable via npx skills add or as a Claude Code plugin."
+    },
+    {
+      "dir": "openaccountants",
+      "url": "https://github.com/openaccountants/openaccountants",
+      "commit": "342ecb16",
+      "date": "2026-09-28",
+      "branch": "main",
+      "size_mb": 213.2,
+      "files": 9132,
+      "has_skills": true,
+      "skills": "781 SKILL.md under agent-skills/, one per jurisdiction and return type (24 US-prefixed: us-federal-return-assembly, us-quarterly-estimated-tax, us-s-corp-election-decision, fl-sales-use-tax, ...); also ships an MCP server. Repo is a shallow mirror of openaccountants.com - commits are automated syncs, not authored in GitHub.",
+      "description": "Tax reference Guides for AI agents, peer-reviewed by named CPAs/CAs/EAs, spanning 1,000+ Guides across 190+ jurisdictions, with an MCP server. Uses a two-tier design: a workflow-architecture base skill (runbook, refusal catalogue, citation discipline, self-checks, Circular 230 human-reviewer gate) that must be loaded alongside separate content skills supplying the actual rates and thresholds.",
+      "license_note": "NOT plain AGPL. Skill content is under OpenAccountants Guide License v1.0 (LicenseRef-OA-Guide-License-1.0) while repo code is AGPL-3.0-only. Section 2 permits personal use, professional reference, education/research, and non-commercial redistribution with attribution and SPDX retained. Section 4 requires a separate paid commercial licence from Glimpse Ltd for shipping the Guides in a product offered to third parties, indexing them for commercial RAG, commercial model evaluation, and bulk extraction as a dataset. Where a single file mixes Guide content and code, the more restrictive term applies. The GitHub licence badge says AGPL-3.0 and understates this - read LICENSES/LicenseRef-OA-Guide-License-1.0.txt before reusing anything."
     }
   ],
   "totals": {
-    "repos": 12,
-    "with_skills": 10,
-    "skill_files": 223,
-    "distinct_skills": 188,
-    "size_mb": 565.9
+    "repos": 13,
+    "with_skills": 11,
+    "skill_files": 1004,
+    "distinct_skills": 969,
+    "size_mb": 779.1
   }
 }
