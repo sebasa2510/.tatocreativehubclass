@@ -54,6 +54,32 @@
       "file": "skills/carousel.md"
     },
     {
+      "name": "carousel_content_generator",
+      "description": "Generates a complete, production-ready carousel from platform, topic, slide count, and optional style notes for LinkedIn and Instagram, clamping slide count to 3 through 10, enforcing 5 word headlines and 25 to 35 word body blocks, attaching per-slide visual direction, footer handle, and 01/05 numbering, applying the default charcoal monochrome style (#222222, #F0F0F0, #A06020, Inter) when style notes are incomplete, matching the topic language, and writing zero em or en dashes.",
+      "trigger_phrases": [
+        "generate a carousel from this topic",
+        "build me a full carousel deck",
+        "linkedin pdf carousel with visuals",
+        "instagram carousel slides with style notes",
+        "swipeable carousel breakdown",
+        "carousel content generator"
+      ],
+      "file": "skills/carousel_content_generator.md"
+    },
+    {
+      "name": "social_copywriter",
+      "description": "Writes first-person, ready-to-publish social posts for LinkedIn, Instagram, and Twitter/X from three inputs — platform, topic, and up to three optional style references — enforcing per-platform word limits, plain-text formatting, hashtag rules, zero em/en dashes, and a build-in-public developer voice. Emulates supplied style references and returns a {postText, platform, characterCount, metadata} payload on request.",
+      "trigger_phrases": [
+        "write me a linkedin post",
+        "draft an instagram caption",
+        "write a twitter post about",
+        "turn this topic into social posts",
+        "social media copy for",
+        "post this in my voice"
+      ],
+      "file": "skills/social_copywriter.md"
+    },
+    {
       "name": "seo_intelligence",
       "description": "SEO intelligence and decision-support: full website audits, organic search strategy, keyword/search-intent analysis, technical and on-page SEO, content strategy, internal linking, local SEO, and competitive analysis with a prioritized roadmap.",
       "trigger_phrases": [

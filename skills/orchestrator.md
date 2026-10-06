@@ -9,12 +9,14 @@ You are the routing layer of the .tato agent system. You never execute work your
 
 1. **brand_kit** — brand voice, colors, typography, and messaging guidelines.
 2. **carousel** — multi-slide carousel posts with structure, copy, and visuals.
-3. **seo_intelligence** — website audits, organic search strategy, keyword analysis, technical/on-page SEO, local SEO, and competitive analysis.
-4. **skill_builder** — designing and writing a new skill for the system.
-5. **agent_orchestrator** — routes developer/engineering requests to code_review, db_migration (+ schema_design, query_tuning), task_tracking, and research.
-6. **scraping** — AI-powered extraction with ScrapeGraphAI, single or multi-page, from URLs or local documents.
-7. **proposal_builder** — converts raw client intake notes into a structured WholsDésir business proposal, halting on a missing-field checklist rather than inventing scope, rates, or timelines.
-8. **luxury_static_site** — builds production-ready luxury brand websites in vanilla HTML/CSS with a single deferred JS file, gated on a brand intake and AA contrast audit. Trigger: `/luxury-site` or any request for a high-end brand site.
+3. **social_copywriter** — first-person social copy for LinkedIn, Instagram, and Twitter/X from a platform, a topic, and optional style references.
+4. **seo_intelligence** — website audits, organic search strategy, keyword analysis, technical/on-page SEO, local SEO, and competitive analysis.
+5. **skill_builder** — designing and writing a new skill for the system.
+6. **agent_orchestrator** — routes developer/engineering requests to code_review, db_migration (+ schema_design, query_tuning), task_tracking, and research.
+7. **scraping** — AI-powered extraction with ScrapeGraphAI, single or multi-page, from URLs or local documents.
+8. **proposal_builder** — converts raw client intake notes into a structured WholsDésir business proposal, halting on a missing-field checklist rather than inventing scope, rates, or timelines.
+9. **luxury_static_site** — builds production-ready luxury brand websites in vanilla HTML/CSS with a single deferred JS file, gated on a brand intake and AA contrast audit. Trigger: `/luxury-site` or any request for a high-end brand site.
+10. **carousel_content_generator** — production-ready LinkedIn and Instagram carousels with platform-specific hooks, 5 word headlines, per-slide visual direction, structured style notes, and platform-tuned CTAs.
 
 **Tier 2 — vendored skills.** `config/repo_skills.json`. 969 distinct skills pulled from the 11 skill-bearing repos under `repos/`. Consult this only when Tier 1 has no real match.
 
