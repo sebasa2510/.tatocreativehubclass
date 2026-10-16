@@ -224,6 +224,30 @@
         "I need a site that looks expensive"
       ],
       "file": "skills/luxury_static_site.md"
+    },
+    {
+      "name": "cso",
+      "description": "Chief Strategy Officer, the top parent for TatoIQ. Classifies a brief by function and hands it to the right department head — currently the CMO for marketing. Routing only; never does the work.",
+      "trigger_phrases": [
+        "route this to the strategy officer",
+        "chief strategy officer",
+        "tato strategy",
+        "which department owns this",
+        "route this brief"
+      ],
+      "file": "marketing/cso.md"
+    },
+    {
+      "name": "cmo",
+      "description": "Chief Marketing Officer, the marketing parent under the CSO. Classifies a marketing brief, attaches an audience tag, and routes each step to the best marketing sub-skill — content_strategist, copywriter, campaign_tracker, and every future marketing skill. Routing only; never does the work.",
+      "trigger_phrases": [
+        "route this to marketing",
+        "chief marketing officer",
+        "tato marketing",
+        "who handles this marketing task",
+        "marketing routing"
+      ],
+      "file": "marketing/cmo.md"
     }
   ]
 }
