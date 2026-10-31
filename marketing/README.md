@@ -12,7 +12,7 @@ orchestrator
               └── content_research                                 marketing/content_research.md
 ```
 
-- **`cso.md`** — top parent. The orchestrator hands it a brief; it classifies the request by function and routes it to the right department head. Its only sub-agent today is the CMO.
+- **`cso.md`** — top parent. The orchestrator hands it a brief; it classifies the request by function and routes it to the right department head. Its department heads are the CMO for marketing and the CCO for customers (`../customer/cco.md`).
 - **`cmo.md`** — marketing parent. It classifies a marketing brief, attaches an audience tag, and routes each step to the correct marketing sub-skill.
 - **sub-skills** — `role: subagent`, `parent: cmo`. They produce the work.
 

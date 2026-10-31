@@ -2,9 +2,10 @@
 name: cso
 title: Chief Strategy Officer
 role: parent
-description: Top-level strategy parent for TatoIQ. Receives structured briefs from the orchestrator, classifies the request by function, and routes it to the correct department head. Marketing and brand briefs go to the CMO. Also runs the client delivery pipeline: form submission in, Client Package out, via the scope agent, the proposal agent, and the CMO. Sales ends at the written proposal. Routing and collation only. Never drafts prose, publishes, sends, or spends.
+description: Top-level strategy parent for TatoIQ. Receives structured briefs from the orchestrator, classifies the request by function, and routes it to the correct department head. Marketing and brand briefs go to the CMO. Customer messages go to the CCO, which triages them first. Also runs the client delivery pipeline: form submission in, Client Package out, via the scope agent, the proposal agent, and the CMO. Sales ends at the written proposal. Routing and collation only. Never drafts prose, publishes, sends, or spends.
 sub_agents:
   - cmo
+  - cco
   - scope_agent
   - proposal_agent
 version: 1.0.0
@@ -61,8 +62,11 @@ If required fields are missing, **do not guess**. Halt and ask the orchestrator 
 | Department | Head | File | Owns |
 |---|---|---|---|
 | `marketing` | `cmo` | `marketing/cmo.md` | LinkedIn posts, announcements, and campaign performance. |
+| `customer` | `cco` | `customer/cco.md` | Inbound customer messages: triage, ownership, and the human gate. |
 
 Each department head routes its own steps to its own sub-skills. You do not address a department's sub-skills directly — the head owns that layer.
+
+The customer department sits under you, parallel to marketing. The CCO runs every inbound message through its `triage_agent` first; the triage agent records the request type, urgency, owner, and human gate on the customer record. You route the message to the CCO and let it report the owner. Do not triage it yourself. The CCO never sends: anything outbound goes through the CMO and its `email_writer`, after the user confirms.
 
 ## 3b. Direct sub-agents
 
@@ -84,6 +88,7 @@ Map the brief to exactly one department head:
 | Intent | Head |
 |---|---|
 | Brand, content, LinkedIn, announcements, campaigns, audience messaging, marketing performance | `cmo` |
+| An inbound message from a customer, or a request that needs triage before it can be routed | `cco` |
 | A prospect profile needing a project scope | `scope_agent` (direct) |
 | A prospect profile plus scope needing a proposal letter | `proposal_agent` (direct) |
 | A request that touches no registered department | No route — return to the orchestrator (Section 7). |

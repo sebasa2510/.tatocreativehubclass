@@ -248,6 +248,20 @@
         "marketing routing"
       ],
       "file": "marketing/cmo.md"
+    },
+    {
+      "name": "cco",
+      "description": "Chief Customer Officer, the customer parent under the CSO, parallel to the CMO. Sends every inbound customer message through its triage agent, then reports what the person wants, the request type, urgency, the owning head (CSO for new business, CCO for support, CMO for partnership or press, the user for money), and whether a person must be involved before any reply. Routing and reporting only; never answers, sends, or decides money.",
+      "trigger_phrases": [
+        "route this to the customer officer",
+        "chief customer officer",
+        "tato customer",
+        "triage this message",
+        "who owns this customer request",
+        "customer routing",
+        "sort this inbound message"
+      ],
+      "file": "customer/cco.md"
     }
   ]
 }

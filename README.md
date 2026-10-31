@@ -8,12 +8,13 @@ This folder holds the configuration, memory, and skills that define how the .tat
 - **memory/** — `context.json`, persistent memory of sessions, history, and timestamps.
 - **skills/** — system prompt files (.md), one per skill.
 - **marketing/** — the CSO → CMO → marketing sub-skills tree. See `marketing/README.md`.
+- **customer/** — the CSO → CCO → customer sub-skills tree, parallel to marketing. See `customer/README.md`.
 - **repos/** — third-party repos, tracked as git submodules pinned in `.gitmodules`. See `config/repos.json`.
 - **scripts/** — maintenance scripts.
 
 ## Routing is two-tier
 
-1. `config/skills.json` — 19 first-party skills. Always searched first.
+1. `config/skills.json` — 20 first-party skills. Always searched first.
 2. `config/repo_skills.json` — 969 distinct skills from the 11 vendored repos, used when Tier 1 has no match.
 
 `config/repo_skills.json` is generated. After adding or updating a repo, rebuild it:
@@ -31,6 +32,8 @@ It scans `repos/` for `SKILL.md`, reads each file's frontmatter, collapses the p
 3. Add an entry pointing to it in `config/skills.json` (name, description, trigger phrases, file path).
 
 **Marketing skills** go in `marketing/` instead. Any file there with `role: subagent` becomes a CMO sub-skill; run `.\scripts\index-marketing-subagents.ps1` to wire it into the CMO. See `marketing/README.md`.
+
+**Customer skills** go in `customer/` instead. Any file there with `role: subagent` becomes a CCO sub-skill; run `.\scripts\index-customer-subagents.ps1` to wire it into the CCO. See `customer/README.md`.
 
 ## Working with the Submodules
 
