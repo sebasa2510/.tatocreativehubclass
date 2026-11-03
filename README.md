@@ -2,6 +2,24 @@
 
 This folder holds the configuration, memory, and skills that define how the .tato agent behaves.
 
+## TatoIQ final project
+
+The full TatoIQ capstone is checked in as normal source under [`tatoiq/`](tatoiq/): the Next.js app, lead engine, outreach pipeline, and the Saggio assistant. Start with:
+
+- [`tatoiq/README-SAGGIO.md`](tatoiq/README-SAGGIO.md) — how Saggio answers clients from their record
+- [`tatoiq/DEMO-CHEATSHEET.md`](tatoiq/DEMO-CHEATSHEET.md) — presentation walkthrough
+- [`tatoiq/docs/CAPSTONE-BRIEF.md`](tatoiq/docs/CAPSTONE-BRIEF.md) — project brief
+
+An earlier contact-triage scaffold is preserved in [`tatoiq-capstone/`](tatoiq-capstone/).
+
+```powershell
+cd tatoiq
+npm install
+npm run dev
+```
+
+Copy `tatoiq/.env.example` to `tatoiq/.env.local` and fill values locally. Never commit `.env`.
+
 ## Structure
 
 - **config/** — `skills.json`, the first-party registry that maps trigger phrases to skills. `repos.json`, the manifest of vendored third-party repos. `repo_skills.json`, generated index of vendored skills.
