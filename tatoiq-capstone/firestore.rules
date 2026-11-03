@@ -1,0 +1,57 @@
+rules_version = '2';
+
+// TatoIQ — deny by default.
+//
+// The public site may CREATE one contact submission and may never read it back.
+// A signed-in person may read and edit only their own profile document.
+// Everything else is closed, including every collection added later.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Default deny ────────────────────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // The shape the contact form is allowed to write. Anything else is refused
+    // before it reaches Firestore, including a client that tries to pre-set the
+    // triage decision or the review flag.
+    function isValidContactSubmission() {
+      let d = request.resource.data;
+      return d.source == 'website-contact'
+        && d.name is string
+        && d.name.size() > 0
+        && d.name.size() <= 120
+        && d.email is string
+        && d.email.matches('.*@.*')
+        && d.email.size() <= 254
+        && d.message is string
+        && d.message.size() > 0
+        && d.message.size() <= 5000
+        && d.createdAt is timestamp;
+    }
+
+    // ── Public form: append-only ────────────────────────────────────────────
+    match /contacts/{contactId} {
+      allow create: if isValidContactSubmission();
+      allow read, update, delete: if false;
+    }
+
+    // ── Own data: profile of the signed-in person only ──────────────────────
+    match /users/{userId} {
+      allow read, update: if isOwner(userId);
+      allow create: if isOwner(userId)
+        && request.resource.data.keys().hasOnly(['displayName', 'email', 'createdAt'])
+        && request.resource.data.email == request.auth.token.email;
+      allow delete: if false;
+    }
+  }
+}

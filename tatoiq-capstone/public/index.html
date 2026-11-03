@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TatoIQ — talk to a tax team that reads first</title>
+    <meta
+      name="description"
+      content="Tell TatoIQ what you need. Every message is read, routed to the right person, and answered by a human."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contact">Skip to the form</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="wordmark" href="/" aria-label="TatoIQ home">
+          <span class="wordmark-mark" aria-hidden="true">T</span>
+          <span class="wordmark-text">TatoIQ</span>
+        </a>
+        <p class="header-note">Miami tax preparation &amp; planning</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap hero-inner">
+          <p class="eyebrow">Contact</p>
+          <h1>Every message is read before anyone replies.</h1>
+          <p class="lede">
+            Tell us what you need in your own words. We classify it, route it to the
+            right person, and answer by email. Nothing is quoted before we understand
+            the work.
+          </p>
+        </div>
+      </section>
+
+      <section class="wrap layout" id="contact">
+        <div class="card form-card">
+          <h2>Send a message</h2>
+          <p class="card-sub">
+            Required fields are marked. Please do not include an SSN, EIN, account
+            number, or card number.
+          </p>
+
+          <form id="contact-form" novalidate>
+            <div class="field-row">
+              <div class="field">
+                <label for="name">Your name <span aria-hidden="true">*</span></label>
+                <input id="name" name="name" type="text" autocomplete="name" required maxlength="120" />
+              </div>
+              <div class="field">
+                <label for="businessName">Business name</label>
+                <input
+                  id="businessName"
+                  name="businessName"
+                  type="text"
+                  autocomplete="organization"
+                  maxlength="120"
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="email">Email <span aria-hidden="true">*</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" />
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="service">What do you need?</label>
+                <select id="service" name="service">
+                  <option value="">Choose one</option>
+                  <option>Tax preparation</option>
+                  <option>Tax planning</option>
+                  <option>Bookkeeping</option>
+                  <option>IRS notice or letter</option>
+                  <option>Something else</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="industry">Industry</label>
+                <input id="industry" name="industry" type="text" maxlength="80" />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="budget">Budget range</label>
+                <select id="budget" name="budget">
+                  <option value="">Prefer not to say</option>
+                  <option>Under $1,000</option>
+                  <option>$1,000–$5,000</option>
+                  <option>$5,000–$15,000</option>
+                  <option>Over $15,000</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="timeline">Timeline</label>
+                <select id="timeline" name="timeline">
+                  <option value="">No fixed date</option>
+                  <option>This month</option>
+                  <option>This quarter</option>
+                  <option>Before the filing deadline</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="message">What is going on? <span aria-hidden="true">*</span></label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                required
+                maxlength="5000"
+                placeholder="Example: My books are three months behind and I am not sure what I can deduct."
+              ></textarea>
+              <p class="hint"><span id="message-count">0</span> / 5000</p>
+            </div>
+
+            <!-- Bot trap: hidden from people, never written to Firestore. -->
+            <div class="hp" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <button id="submit" class="button" type="submit">Send message</button>
+            <p id="status" class="status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <aside class="card side-card" aria-labelledby="next-title">
+          <h2 id="next-title">What happens next</h2>
+          <ol class="steps">
+            <li>
+              <strong>Saved.</strong> Your message goes into our contact records, not a
+              shared inbox.
+            </li>
+            <li>
+              <strong>Read.</strong> It is classified as new business, client support,
+              a money question, or something else.
+            </li>
+            <li>
+              <strong>Routed.</strong> The owning person gets it. Money questions go to
+              the owner, never to an automated answer.
+            </li>
+            <li>
+              <strong>Answered.</strong> You get one email. If we cannot tell what you
+              need, a person reads it before replying.
+            </li>
+          </ol>
+          <p class="fine-print">
+            This form does not give tax advice. It starts a conversation.
+          </p>
+        </aside>
+      </section>
+
+      <section class="wrap" aria-live="polite">
+        <article id="result" class="card result-card" hidden>
+          <div class="result-head">
+            <h2 id="result-title">Message received</h2>
+            <span id="result-badge" class="badge">saved</span>
+          </div>
+          <p id="result-copy" class="result-copy"></p>
+
+          <dl class="decision" id="decision" hidden>
+            <div>
+              <dt>What we understood</dt>
+              <dd id="decision-intent">—</dd>
+            </div>
+            <div>
+              <dt>Request kind</dt>
+              <dd id="decision-category">—</dd>
+            </div>
+            <div>
+              <dt>Urgency</dt>
+              <dd id="decision-urgency">—</dd>
+            </div>
+            <div>
+              <dt>Owner</dt>
+              <dd id="decision-owner">—</dd>
+            </div>
+            <div>
+              <dt>Reply</dt>
+              <dd id="decision-reply">—</dd>
+            </div>
+          </dl>
+
+          <p id="result-review" class="review-note" hidden></p>
+          <p class="fine-print" id="result-id"></p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>© <span id="year">2026</span> TatoIQ. Miami, Florida.</p>
+        <p>Tax answers are provided by a human, with sources.</p>
+      </div>
+    </footer>
+
+    <script src="/config.js"></script>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

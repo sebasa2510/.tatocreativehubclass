@@ -1,0 +1,45 @@
+# ── Secrets: never commit ────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+.firebaserc
+secrets/
+credentials/
+*.pem
+*.key
+*.p12
+
+# Firebase / Google service accounts
+*service-account*.json
+*firebase-adminsdk*.json
+serviceAccount*.json
+gcloud-credentials.json
+
+# Cookie, session, and browser-state exports
+cookies*.txt
+*cookies*.txt
+*cookies*.json
+cookie*.json
+session-export*
+storage-state.json
+auth-state.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / Firebase tooling
+node_modules/
+.firebase/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
