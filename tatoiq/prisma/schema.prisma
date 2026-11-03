@@ -1,0 +1,860 @@
+// TatoIQ data model — Prisma 7 (provider "prisma-client", output below).
+// Connection URL lives in prisma7.config.ts (Prisma 7 convention), NOT here.
+//
+// DESIGN NOTES
+//  - Sensitive identifiers (SSN/TIN/bank) are stored ONLY as AES-256-GCM
+//    ciphertext (Bytes). Plaintext never touches the database.
+//  - Every tenant-scoped row hangs off Organization. Application code AND
+//    PostgreSQL row-level security (see docs/SECURITY.md) enforce isolation.
+//  - AuditLog is append-only; writes go through Prisma client extensions.
+//  - Filing status and refund status are modelled SEPARATELY from preparation
+//    status (acceptance never implies a refund).
+//  - KnowledgeChunk.embedding uses pgvector (Unsupported: created via a
+//    migration with `CREATE EXTENSION vector`).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────── Enums ───────────────────────────────
+
+enum Role {
+  CLIENT
+  PREPARER
+  REVIEWER
+  BOOKKEEPER
+  ADMIN
+  SUPPORT
+}
+
+enum PreparationStatus {
+  NOT_STARTED
+  INTAKE_IN_PROGRESS
+  DOCUMENTS_REQUESTED
+  INFORMATION_REVIEW_NEEDED
+  PREPARATION_IN_PROGRESS
+  AWAITING_CLIENT_RESPONSE
+  AWAITING_PREPARER_REVIEW
+  AWAITING_CLIENT_AUTHORIZATION
+  READY_FOR_FILING
+  SUBMITTED_FOR_FILING
+  ACKNOWLEDGED
+  REJECTED_OR_ACTION_REQUIRED
+  ACCEPTED_FOR_PROCESSING
+  COMPLETED
+}
+
+enum FilingStatusValue {
+  NOT_FILED
+  SUBMITTED
+  ACKNOWLEDGED
+  REJECTED
+  ACCEPTED
+}
+
+enum RefundStatusValue {
+  NOT_APPLICABLE
+  NOT_YET_ISSUED
+  ISSUED
+  CLIENT_CONFIRMED_RECEIVED
+}
+
+enum ReturnType {
+  FORM_1040
+  FORM_1040_SCHEDULE_C
+  FORM_1040_SCHEDULE_SE
+  FORM_1065
+  FORM_1120S
+}
+
+enum ScanStatus {
+  QUARANTINED
+  SCANNING
+  CLEAN
+  INFECTED
+  DELETED
+}
+
+enum ExtractionStatus {
+  PENDING
+  EXTRACTED
+  ACCEPTED_BY_TAXPAYER
+  REJECTED
+  NEEDS_CONFIRMATION
+}
+
+enum MessageKind {
+  PORTAL
+  ESCALATION
+}
+
+// ───────────────────────── Tenancy & identity ─────────────────────────
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  users          User[]
+  returns        TaxReturn[]
+  leads          Lead[]
+  leadSources    LeadSource[]
+  pipelineStages PipelineStage[]
+  scoringRules   ScoringRule[]
+  agentConfigs   AgentConfig[]
+  importBatches  ImportBatch[]
+}
+
+model User {
+  id           String    @id @default(cuid())
+  organizationId String
+  email        String    @unique
+  name         String?
+  role         Role      @default(CLIENT)
+  emailVerified Boolean  @default(false)
+  mfaEnabled   Boolean   @default(false)
+  mfaSecret    String?
+  passwordHash String?
+  createdAt    DateTime  @default(now())
+
+  organization    Organization        @relation(fields: [organizationId], references: [id])
+  assignments     PreparerAssignment[] @relation("preparerAssignments")
+  clients         PreparerAssignment[] @relation("clientAssignments")
+  taxpayerProfile TaxpayerProfile?
+  messagesSent    Message[]           @relation("messageSender")
+  auditLogs       AuditLog[]
+  leadsAssigned   Lead[]              @relation("leadAssignee")
+  leadsCreated    Lead[]              @relation("leadCreator")
+}
+
+/// Links a preparer/reviewer to the clients they are allowed to work on.
+model PreparerAssignment {
+  id            String   @id @default(cuid())
+  preparerId    String
+  clientId      String
+  organizationId String
+  createdAt     DateTime @default(now())
+
+  preparer User @relation("preparerAssignments", fields: [preparerId], references: [id])
+  client   User @relation("clientAssignments", fields: [clientId], references: [id])
+
+  @@unique([preparerId, clientId])
+}
+
+/// Personal tax profile. Sensitive identifiers are ciphertext only.
+model TaxpayerProfile {
+  id                 String @id @default(cuid())
+  userId             String @unique
+  organizationId     String
+  legalFirstName     String?
+  legalLastName      String?
+  // AES-256-GCM ciphertext (iv + tag + ciphertext). Never plaintext.
+  ssnCiphertext      Bytes?
+  ssnLast4           String?
+  bankAccountCiphertext Bytes?
+  bankRoutingCiphertext Bytes?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+// ───────────────────────────── Returns ─────────────────────────────
+
+model TaxReturn {
+  id             String           @id @default(cuid())
+  organizationId String
+  clientId       String
+  taxYear        Int
+  returnType     ReturnType       @default(FORM_1040_SCHEDULE_C)
+  status         PreparationStatus @default(NOT_STARTED)
+  jointWorkspaceId String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  jointWorkspace JointWorkspace? @relation(fields: [jointWorkspaceId], references: [id])
+  documents  Document[]
+  incomeRecords IncomeRecord[]
+  expenseRecords ExpenseRecord[]
+  calculationRuns CalculationRun[]
+  snapshots  ReturnSnapshot[]
+  statusHistory ReturnStatusHistory[]
+  filingStatus FilingStatusRecord[]
+  refundStatus RefundStatusRecord[]
+  tasks      Task[]
+  messages   Message[]
+}
+
+model JointWorkspace {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  returns   TaxReturn[]
+  spouses   Spouse[]
+}
+
+model Spouse {
+  id                String   @id @default(cuid())
+  jointWorkspaceId  String
+  email             String
+  // Separate credential + separate Form 8879 consent.
+  authUserId        String?
+  createdAt         DateTime @default(now())
+
+  jointWorkspace JointWorkspace @relation(fields: [jointWorkspaceId], references: [id])
+}
+
+// ───────────────────────── Documents & extraction ─────────────────────────
+
+model Document {
+  id             String     @id @default(cuid())
+  taxReturnId    String
+  organizationId String
+  originalName   String
+  s3Key          String?
+  checksum       String
+  scanStatus     ScanStatus @default(QUARANTINED)
+  uploadedAt     DateTime   @default(now())
+
+  taxReturn  TaxReturn           @relation(fields: [taxReturnId], references: [id])
+  extraction ExtractionStaging[]
+}
+
+model ExtractionStaging {
+  id            String           @id @default(cuid())
+  documentId    String
+  fieldLabel    String
+  rawValue      String?
+  confidence    Float?
+  status        ExtractionStatus @default(PENDING)
+  // Source reference: which document + which field the value came from.
+  createdAt     DateTime         @default(now())
+
+  document Document @relation(fields: [documentId], references: [id])
+
+  @@index([documentId])
+}
+
+// ───────────────────────── Income & expenses ─────────────────────────
+
+model IncomeRecord {
+  id          String @id @default(cuid())
+  taxReturnId String
+  label       String
+  amount      Decimal @db.Decimal(14, 2)
+  sourceDocumentId String?
+  sourceField String?
+  createdAt   DateTime @default(now())
+
+  taxReturn TaxReturn @relation(fields: [taxReturnId], references: [id])
+}
+
+model ExpenseRecord {
+  id          String @id @default(cuid())
+  taxReturnId String
+  scheduleCLine String
+  label       String
+  amount      Decimal @db.Decimal(14, 2)
+  sourceDocumentId String?
+  sourceField String?
+  confirmed   Boolean @default(false)
+  createdAt   DateTime @default(now())
+
+  taxReturn TaxReturn @relation(fields: [taxReturnId], references: [id])
+}
+
+// ───────────────────────── Calculations & authorization ─────────────────────────
+
+model CalculationRun {
+  id          String @id @default(cuid())
+  taxReturnId String
+  taxYear     Int
+  ruleSource  String
+  engineVersion String
+  inputs      Json
+  outputs     Json
+  createdAt   DateTime @default(now())
+
+  taxReturn TaxReturn @relation(fields: [taxReturnId], references: [id])
+}
+
+/// Immutable snapshot of a draft return at a point in time.
+model ReturnSnapshot {
+  id          String @id @default(cuid())
+  taxReturnId String
+  payload     Json
+  createdAt   DateTime @default(now())
+
+  taxReturn TaxReturn @relation(fields: [taxReturnId], references: [id])
+  authorizations Authorization8879[]
+}
+
+/// Form 8879 e-signature authorization. Linked to an immutable snapshot.
+model Authorization8879 {
+  id               String   @id @default(cuid())
+  returnSnapshotId String
+  signerEmail      String
+  ipAddress        String
+  signatureHash    String
+  signedAt         DateTime @default(now())
+  // Locked against modification.
+  immutable        Boolean  @default(true)
+
+  returnSnapshot ReturnSnapshot @relation(fields: [returnSnapshotId], references: [id])
+}
+
+// ───────────────────────── Status tracking ─────────────────────────
+
+model ReturnStatusHistory {
+  id          String            @id @default(cuid())
+  taxReturnId String
+  status      PreparationStatus
+  actorId     String?
+  reason      String?
+  evidenceFileId String?
+  manuallyRecorded Boolean       @default(false)
+  createdAt   DateTime          @default(now())
+
+  taxReturn TaxReturn @relation(fields: [taxReturnId], references: [id])
+}
+
+model FilingStatusRecord {
+  id          String            @id @default(cuid())
+  taxReturnId String
+  status      FilingStatusValue
+  confirmationId String?
+  evidenceFileId String?
+  createdAt   DateTime          @default(now())
+
+  taxReturn TaxReturn @relation(fields: [taxReturnId], references: [id])
+}
+
+model RefundStatusRecord {
+  id          String @id @default(cuid())
+  taxReturnId String
+  status      RefundStatusValue
+  proofFileId String?
+  createdAt   DateTime @default(now())
+
+  taxReturn TaxReturn @relation(fields: [taxReturnId], references: [id])
+}
+
+// ───────────────────────── Workflow: tasks, messages ─────────────────────────
+
+model Task {
+  id          String   @id @default(cuid())
+  taxReturnId String
+  title       String
+  dueDate     DateTime?
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  taxReturn TaxReturn @relation(fields: [taxReturnId], references: [id])
+}
+
+model Message {
+  id          String      @id @default(cuid())
+  taxReturnId String
+  senderId    String?
+  kind        MessageKind @default(PORTAL)
+  body        String
+  createdAt   DateTime    @default(now())
+
+  taxReturn TaxReturn @relation(fields: [taxReturnId], references: [id])
+  sender    User?     @relation("messageSender", fields: [senderId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  body      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ───────────────────────── Billing ─────────────────────────
+
+model Invoice {
+  id          String   @id @default(cuid())
+  taxReturnId String?
+  amount      Decimal  @db.Decimal(14, 2)
+  stripeId    String?
+  paid        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+// ───────────────────────── Plaid (bank sync) ─────────────────────────
+
+model PlaidItem {
+  id             String @id @default(cuid())
+  organizationId String
+  itemId         String
+  accessTokenCiphertext Bytes?
+  createdAt      DateTime @default(now())
+
+  transactions PlaidTransaction[]
+}
+
+model PlaidTransaction {
+  id          String   @id @default(cuid())
+  plaidItemId String
+  amount      Decimal  @db.Decimal(14, 2)
+  description String
+  // Suggested category only — never auto-confirmed into a return.
+  suggestedScheduleCLine String?
+  confirmed   Boolean  @default(false)
+  date        DateTime
+
+  plaidItem PlaidItem @relation(fields: [plaidItemId], references: [id])
+}
+
+// ───────────────────────── Audit log (append-only) ─────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  action     String
+  entity     String
+  entityId   String?
+  ipAddress  String?
+  userAgent  String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id])
+
+  @@index([entity, entityId])
+  @@index([actorId])
+}
+
+// ───────────────────────── RAG knowledge base (pgvector) ─────────────────────────
+
+model KnowledgeChunk {
+  id        String   @id @default(cuid())
+  source    String
+  section   String?
+  content   String
+  // pgvector column — created via migration (CREATE EXTENSION vector).
+  embedding Unsupported("vector(1536)")?
+  createdAt DateTime @default(now())
+
+  @@index([source])
+}
+
+// ───────────────────────── Lead generation agent ─────────────────────────
+//
+// DESIGN NOTES
+//  - Never collect SSNs, bank credentials, or tax returns to qualify a lead.
+//    Only business-contact fields and public-source provenance are stored here.
+//  - Soft delete: Lead.deletedAt. Reads are auto-filtered by the Prisma client
+//    extension in src/lib/db/prisma.ts — never hard-delete a lead.
+//  - Consent + suppression (LeadConsent) and legal eligibility ALWAYS override
+//    grade and score at every layer (see src/lib/leads/consent.ts).
+//  - Stage transitions + reassignments are recorded append-only in the existing
+//    AuditLog model (src/lib/leads/audit.ts) rather than a duplicate table.
+
+enum LeadGrade {
+  A
+  B
+  C
+  D
+  F
+}
+
+enum LeadState {
+  NEW
+  RESEARCHING
+  VERIFIED
+  QUALIFIED
+  CONTACTED
+  NURTURE
+  FOLLOW_UP_NEEDED
+  CONSULTATION_BOOKED
+  CONVERTED
+  SPECIALIST_REVIEW
+  POOR_FIT
+  INSUFFICIENT_INFORMATION
+  NO_CONSENT
+  DO_NOT_CONTACT
+}
+
+enum ScoreConfidence {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum ConsentStatus {
+  UNKNOWN
+  GRANTED
+  WITHDRAWN
+  NOT_REQUIRED
+}
+
+enum ConsentKeyType {
+  EMAIL
+  PHONE
+}
+
+enum LeadSourceKind {
+  MANUAL
+  CSV_IMPORT
+  DISCOVERY
+  REFERRAL
+  WEBSITE
+  EVENT
+  OTHER
+}
+
+enum ImportStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  PARTIAL
+  FAILED
+}
+
+enum ActivityKind {
+  NOTE
+  CALL
+  EMAIL
+  STAGE_CHANGE
+  REASSIGNMENT
+  SYSTEM
+}
+
+enum OutreachStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  BLOCKED
+  SENT
+  FAILED
+  CANCELLED
+}
+
+enum OutreachChannel {
+  EMAIL
+}
+
+enum ConsultationStatus {
+  SCHEDULED
+  CANCELLED
+  NO_SHOW
+  COMPLETED
+}
+
+enum ConversionKind {
+  ENGAGEMENT_SIGNED
+  FIRST_YEAR_REVENUE
+  REFERRAL
+  OTHER
+}
+
+/// Where a lead came from. Discovery endpoint metadata lives here so every
+/// lead can be traced back to its source URL + query for audit.
+model LeadSource {
+  id             String         @id @default(cuid())
+  organizationId String
+  name           String
+  kind           LeadSourceKind @default(MANUAL)
+  provider       String?
+  endpointUrl    String?
+  queryParam     String?
+  isActive       Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  leads        Lead[]
+
+  @@unique([organizationId, name])
+}
+
+/// Configurable pipeline display order. LeadState remains the authority for
+/// the state machine; this table controls labels/order/conversion semantics.
+model PipelineStage {
+  id                 String    @id @default(cuid())
+  organizationId     String
+  key                LeadState
+  label              String
+  sortOrder          Int
+  isTerminal         Boolean   @default(false)
+  countsAsConversion Boolean   @default(false)
+  createdAt          DateTime  @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, key])
+  @@index([organizationId, sortOrder])
+}
+
+/// A prospective client. Business contact info only — no SSN/TIN/bank/tax data.
+model Lead {
+  id             String  @id @default(cuid())
+  organizationId String
+  sourceId       String?
+  // Carried through every stage for attributable conversion analytics.
+  sourceTag      String?
+
+  businessName  String?
+  contactName   String?
+  email         String?
+  phone         String?
+  website       String?
+  addressLine1  String?
+  city          String?
+  state         String?
+  postalCode    String?
+  industry      String?
+  entityType    String?
+  employeeCount Int?
+  annualRevenue Decimal? @db.Decimal(14, 2)
+
+  // Verification: unverified fields earn zero points and a low-confidence tag.
+  verifiedEmail    Boolean @default(false)
+  verifiedPhone    Boolean @default(false)
+  verifiedBusiness Boolean @default(false)
+  verifiedAddress  Boolean @default(false)
+
+  // Latest scoring snapshot (full history lives in LeadScore).
+  grade      LeadGrade?
+  score      Int?
+  confidence ScoreConfidence?
+  gradedAt   DateTime?
+
+  stage         LeadState     @default(NEW)
+  consentStatus ConsentStatus @default(UNKNOWN)
+  doNotContact  Boolean       @default(false)
+
+  // Provenance.
+  sourceUrl     String?
+  discoveryDate DateTime?
+  /// Synthetic fixture — blocked from any real outreach.
+  isSample Boolean @default(false)
+
+  assignedToId String?
+  assignedAt   DateTime?
+  createdById  String?
+
+  lastActivityAt DateTime?
+  lastOutboundAt DateTime?
+
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  source       LeadSource?  @relation(fields: [sourceId], references: [id])
+  assignedTo   User?        @relation("leadAssignee", fields: [assignedToId], references: [id])
+  createdBy    User?        @relation("leadCreator", fields: [createdById], references: [id])
+
+  scores        LeadScore[]
+  activities    LeadActivity[]
+  drafts        OutreachDraft[]
+  assignments   LeadAssignment[]
+  conversions   ConversionEvent[]
+  consultations Consultation[]
+
+  @@index([organizationId, stage])
+  @@index([organizationId, grade])
+  @@index([organizationId, deletedAt])
+  @@index([assignedToId])
+  @@index([sourceId])
+}
+
+/// Immutable score history. One lead → many scores over time.
+model LeadScore {
+  id                String          @id @default(cuid())
+  leadId            String
+  grade             LeadGrade
+  score             Int
+  confidence        ScoreConfidence
+  reasons           Json
+  evidence          Json
+  missingInfo       Json
+  recommendedAction String?
+  weightsSnapshot   Json
+  ruleVersion       String?
+  evaluatedAt       DateTime        @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId, evaluatedAt])
+}
+
+/// Global consent / suppression registry. Keyed by normalized email and phone
+/// with unique indexes so a suppressed contact cannot be re-added or contacted
+/// across any lead record. A row may carry either or both keys.
+model LeadConsent {
+  id              String         @id @default(cuid())
+  normalizedEmail String?        @unique
+  normalizedPhone String?        @unique
+  suppressed      Boolean        @default(false)
+  status          ConsentStatus  @default(UNKNOWN)
+  reason          String?
+  source          String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([suppressed])
+}
+
+/// Raw CSV import metadata + row-level parse errors (JSONB).
+model ImportBatch {
+  id             String       @id @default(cuid())
+  organizationId String
+  filename       String
+  byteSize       Int          @default(0)
+  rowCount       Int          @default(0)
+  importedCount  Int          @default(0)
+  duplicateCount Int          @default(0)
+  errorCount     Int          @default(0)
+  status         ImportStatus @default(PENDING)
+  metadata       Json?
+  parseErrors    Json?
+  importedById   String?
+  createdAt      DateTime     @default(now())
+  completedAt    DateTime?
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId, createdAt])
+}
+
+/// Human/agent activity + notes on a lead. (Append-only stage/reassignment
+/// audit lives in AuditLog via lib/leads/audit.ts.)
+model LeadActivity {
+  id        String       @id @default(cuid())
+  leadId    String
+  actorId   String?
+  kind      ActivityKind @default(NOTE)
+  body      String
+  metadata  Json?
+  createdAt DateTime     @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId, createdAt])
+}
+
+/// Outreach draft + send status. Guardrail flags are stored for audit.
+model OutreachDraft {
+  id                String          @id @default(cuid())
+  leadId            String
+  channel           OutreachChannel @default(EMAIL)
+  subject           String?
+  body              String
+  status            OutreachStatus  @default(DRAFT)
+  guardrailFlags    Json?
+  aiModel           String?
+  unsubscribeToken  String?         @unique
+  createdById       String?
+  approvedById      String?
+  approvedAt        DateTime?
+  sentAt            DateTime?
+  providerMessageId String?
+  error             String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId, createdAt])
+  @@index([status])
+}
+
+/// Ownership history. The active row mirrors Lead.assignedToId.
+model LeadAssignment {
+  id           String    @id @default(cuid())
+  leadId       String
+  assigneeId   String
+  assignedById String?
+  reason       String?
+  active       Boolean   @default(true)
+  assignedAt   DateTime  @default(now())
+  endedAt      DateTime?
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId])
+  @@index([assigneeId])
+}
+
+/// A conversion (e.g. signed engagement) attributed to the lead's source tag.
+model ConversionEvent {
+  id           String         @id @default(cuid())
+  leadId       String
+  kind         ConversionKind
+  revenueCents Int?
+  currency     String?        @default("USD")
+  source       String?
+  externalRef  String?
+  occurredAt   DateTime       @default(now())
+  recordedById String?
+  createdAt    DateTime       @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId])
+}
+
+/// Tax-specialist handoff record created by booking webhooks.
+model Consultation {
+  id                String             @id @default(cuid())
+  leadId            String
+  provider          String             @default("cal.com")
+  externalBookingId String?
+  eventLink         String?
+  scheduledAt       DateTime?
+  status            ConsultationStatus @default(SCHEDULED)
+  specialistNotes   String?
+  specialistId      String?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId])
+  @@index([scheduledAt])
+}
+
+/// Active scoring weights. Admins edit points without a deployment; the
+/// evaluator caches the active set in memory (src/lib/scoring/evaluator.ts).
+model ScoringRule {
+  id             String   @id @default(cuid())
+  organizationId String
+  criterion      String
+  weight         Int
+  isActive       Boolean  @default(true)
+  version        String   @default("v1")
+  notes          String?
+  updatedById    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, criterion, version])
+}
+
+/// Agent configuration / feature-flag overrides (JSON), e.g. Phase-2 gates.
+model AgentConfig {
+  id             String   @id @default(cuid())
+  organizationId String
+  key            String
+  value          Json
+  updatedById    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, key])
+}

@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TatoIQ brand system — premium navy, teal, and gold.
+   Exposed as Tailwind v4 theme tokens so utilities like `bg-navy-900`,
+   `text-gold-400`, and `font-display` are generated automatically.
+   ───────────────────────────────────────────────────────────────────────── */
+@theme {
+  --font-sans:
+    var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, "Times New Roman", serif;
+
+  /* Navy — the primary brand anchor */
+  --color-navy-50: #f2f6fb;
+  --color-navy-100: #e4ecf6;
+  --color-navy-200: #c5d8ec;
+  --color-navy-300: #97b6d9;
+  --color-navy-400: #628ec0;
+  --color-navy-500: #3f6da6;
+  --color-navy-600: #2f5488;
+  --color-navy-700: #27446e;
+  --color-navy-800: #1b3050;
+  --color-navy-900: #102138;
+  --color-navy-950: #081627;
+
+  /* Teal — the secondary accent */
+  --color-teal-50: #edfbf9;
+  --color-teal-100: #d1f4f1;
+  --color-teal-200: #a6e8e4;
+  --color-teal-300: #6ed6d1;
+  --color-teal-400: #37bfb9;
+  --color-teal-500: #17a39e;
+  --color-teal-600: #0f827f;
+  --color-teal-700: #116866;
+  --color-teal-800: #125352;
+  --color-teal-900: #134645;
+
+  /* Gold — reserved for emphasis, never for large fills */
+  --color-gold-50: #fdfaf0;
+  --color-gold-100: #faf1d6;
+  --color-gold-200: #f3e0a6;
+  --color-gold-300: #e9c96d;
+  --color-gold-400: #ddb247;
+  --color-gold-500: #c99a2e;
+  --color-gold-600: #a97c22;
+  --color-gold-700: #855d1e;
+  --color-gold-800: #6d4b1e;
+  --color-gold-900: #5c3f1d;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #102138;
+
+  /* Editorial SaaS elevation — soft, layered, never heavy. */
+  --shadow-xs: 0 1px 2px rgba(8, 22, 39, 0.04);
+  --shadow-sm: 0 1px 3px rgba(8, 22, 39, 0.06), 0 1px 2px rgba(8, 22, 39, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(8, 22, 39, 0.08), 0 2px 6px -2px rgba(8, 22, 39, 0.05);
+  --shadow-lg: 0 12px 32px -8px rgba(8, 22, 39, 0.14), 0 4px 12px -4px rgba(8, 22, 39, 0.06);
+  --shadow-xl: 0 32px 64px -16px rgba(8, 22, 39, 0.22), 0 8px 24px -8px rgba(8, 22, 39, 0.08);
+
+  /* Hairline used for bordered cards instead of full-strength borders. */
+  --hairline: 1px solid rgba(16, 33, 56, 0.08);
+  --hairline-strong: 1px solid rgba(16, 33, 56, 0.14);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-gold-200);
+  color: var(--color-navy-950);
+}
+
+/* ───────────────────────── Editorial primitives ───────────────────────── */
+
+/* Elevated surface: the workhorse card for light sections. */
+.surface {
+  background: #fff;
+  border: var(--hairline);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.surface-interactive {
+  transition:
+    box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms ease;
+}
+
+.surface-interactive:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: rgba(16, 33, 56, 0.16);
+}
+
+/* Gradient hairline border for feature cards. */
+.surface-accent {
+  position: relative;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-md);
+}
+
+.surface-accent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, rgba(23, 163, 158, 0.5), rgba(201, 154, 46, 0.35), transparent 70%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Eyebrow / kicker label used above headings. */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-teal-700);
+}
+
+/* Gradient text for a single emphasized word in a display heading. */
+.text-gradient-gold {
+  background: linear-gradient(100deg, var(--color-gold-300), var(--color-gold-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Fine grid backdrop for dark bands, layered under the brand mesh. */
+.grid-backdrop {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+/* A thin gold rule used to separate premium sections. */
+.brand-rule {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold-400) 20%,
+    var(--color-gold-400) 80%,
+    transparent
+  );
+}
+
+/* Subtle navy blueprint texture for dark hero/footer bands. */
+.brand-mesh {
+  background-image:
+    radial-gradient(60rem 30rem at 80% -10%, rgba(23, 163, 158, 0.18), transparent 60%),
+    radial-gradient(50rem 26rem at 0% 10%, rgba(201, 154, 46, 0.12), transparent 55%);
+}
+
+/* Respect users who prefer reduced motion (WCAG 2.1 AA). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible focus for keyboard users (WCAG 2.1 AA). */
+:focus-visible {
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
+}
